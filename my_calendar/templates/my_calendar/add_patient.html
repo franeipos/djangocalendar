@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 rounded bg-white p-3">
+        <h1 class="text-center mb-3"> Nuevo Calendario </h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" name="submit" value="Añadir" class="btn btn-outline-primary">
+        </form>
+    </div>
+</div>
+{% endblock content %}

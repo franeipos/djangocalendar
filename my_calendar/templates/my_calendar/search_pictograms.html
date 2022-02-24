@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load my_calendar_extras %}
+{% block content %}
+    {% if searched %}
+    <h2>Has buscado '{{ searched }}':</h2>
+        <div class="row text-center">
+            {% if success %}
+                {% for picto in result %}
+                    <div class="col-md-3 my-5">
+                        <img src="https://static.arasaac.org/pictograms/{{ picto|get_id }}/{{ picto|get_id }}_300.png" class="img-fluid">
+                        <p>
+                            <a href="{% url 'pictogram-detail' picto|get_id %}" class="btn btn-outline-primary mt-2">Ver</a>
+                        </p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                {{ msg }}
+            {% endif %}
+        </div>
+    {% else %}
+        <h2>UPS! Se te ha olvidado hacer una búsqueda ..</h2>
+    {% endif %}
+{% endblock content %}
+
+ <!-- TODO: add pagination -->

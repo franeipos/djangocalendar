@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 rounded bg-white p-3">
+        <h1 class="text-center mb-3"> Editar Datos</h1>
+        {% for field in form %}
+            {% for error in field.errors %}
+                <p style="color: red"><i class="bi bi-exclamation-circle"></i> {{ error }}</p>
+            {% endfor %}
+        {% endfor %}
+
+        <form action="." method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <input type="text" name="username" value="{{user.username}}" maxlength="150" required="" id="id_username" aria-describedby="usernameHelp" class="form-control" placeholder="Nombre de usuario">
+                <small id="usernameHelp" class="form-text text-muted">Únicamente letras, dígitos y @/./+/-/_ </small>
+            </div>
+            <div class="mb-3">
+                <input type="email" name="email" value="{{user.email}}" maxlength="254" id="id_email" class="form-control" placeholder="Dirección de correo electrónico">
+            </div>
+            <input type="submit" name="submit" value="Editar" class="btn btn-outline-primary my-3">
+        </form>
+        </h1>
+    </div>
+</div>
+{% endblock %}

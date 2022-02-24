@@ -1,0 +1,117 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @page {
+            size: "A4";
+            margin: .5cm .5cm .5cm .5cm;
+        }
+
+        .calendar {
+          width: 98%;
+          margin: auto;
+          font-size: 13px;
+          background:white;
+        }
+
+        .calendar tr, .calendar td {
+          border: 1px solid black;
+        }
+
+        .calendar th {
+          padding: 10px;
+          text-align: center;
+          font-size: 18px;
+        }
+
+        .calendar td {
+          width: 95px;
+          height: 120px;
+          padding: 10px 0px 0px 5px;
+          vertical-align: top;
+        }
+
+        .month {
+          font-size: 25px;
+        }
+
+        .date {
+          font-size: 16px;
+        }
+
+        .calendar .calendar-event {
+          height: 100%;
+          padding: 0px 5px 0px 20px;
+        }
+
+        .calendar td img{
+            margin-top: 10px;
+            width: 60px;
+        }
+
+        .calendar td a{
+          font-weight: bold;
+          text-decoration: none;
+        }
+
+        .titulo {
+            text-align: center;
+        }
+
+    </style>
+  </head>
+
+  <body>
+    <h3 class="titulo"> {{nombre}} {{ apellido1 }} {{ apellido2 }} </h3>
+
+    <table class="calendar titulo">
+    <tr>
+        <td class="clickable">
+            <span class="cabecera">MES</span>
+            <div class="calendar-event">
+                {% if month_event %}
+                    {% for event in month_event %}
+                        <a class="fs-6" href="{% url 'event-detail' event.id %}"> {{event.title}} </a> <br>
+                        {% if event.image %}
+                            <img src="{{event.image.url }}">
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </td>
+        <td class="clickable">
+            <span class="date fw-bold">ESTACIÓN</span>
+            <div class="calendar-event">
+                {% if season_event %}
+                    {% for event in season_event %}
+                        <a class="fs-6" href="{% url 'event-detail' event.id %}"> {{event.title}} </a> <br>
+                        {% if event.image %}
+                            <img src="{{event.image.url }}">
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </td>
+        <td class="clickable">
+            <span class="date fw-bold">TIEMPO</span>
+            <div class="calendar-event">
+                {% if weather_event %}
+                    {% for event in weather_event %}
+                        <a class="fs-6" href="{% url 'event-detail' event.id %}"> {{event.title}} </a> <br>
+                        {% if event.image %}
+                            <img src="{{event.image.url }}">
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </td>
+    </tr>
+</table>
+
+    {{calendar}}
+
+    </body>
+</html>

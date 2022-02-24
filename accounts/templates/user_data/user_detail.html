@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 rounded bg-white p-3 text-center">
+        <h1 class="text-center mb-3"> Mis datos </h1>
+        <p> <strong> Nombre de usuario:</strong> {{ user.username }} </p>
+        <p> <strong> Email: </strong> {{ user.email }} </p>
+        <p> <a href="{% url 'update-user' user.id %}" class="btn btn-sm btn-outline-success">Editar datos</a> </p>
+        <p> <a href="{% url 'password_change' %}" class="btn btn-sm btn-outline-success">Cambiar contraseña</a> </p>
+    </div>
+</div>
+{% endblock %}

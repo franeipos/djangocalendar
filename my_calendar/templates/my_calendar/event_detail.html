@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h2> {{event.title}} </h2>
+            </div>
+            <div class="card-body">
+                {% if event.type == 1 %}
+                    <h4> {{ event.date|date:"d \d\e F \d\e Y" }} </h4>
+                {% else %}
+                    <h4> {{ event.date|date:"F \d\e Y" }} </h4>
+                {% endif %}
+                <p> {{ event.description }} </p>
+                {% if event.image %}
+                    <img src="{{event.image.url }}" width="200px" height="200px">
+                {% endif %}
+
+            </div>
+            <div class="card-footer text-end">
+                <a href="{% url 'calendar' event.patient_calendar.id event.date.month event.date.year %}" class="btn btn-outline-success btn-sm">Ver en calendario</a>
+                <a href="{% url 'update-event' event.id %}" class="btn btn-sm btn-outline-secondary">Actualizar</a>
+                <a class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">¿Estás seguro?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Éstas seguro de que deseas eliminar el evento <strong> {{ event.title }}</strong> con fecha el {{ event.date|date:"d \d\e F \d\e Y" }} ?
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</a>
+        <a type="button" class="btn btn-danger" href="{% url 'delete-event' event.id %}">Eliminar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

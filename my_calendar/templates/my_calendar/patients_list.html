@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if patients_list %}
+    <div class="row justify-content-center">
+        <h1 class="text-center mb-3">Mis Calendarios</h1>
+        {% for patient in patients_list %}
+            <div class="card mt-2 mb-3 rounded shadow-none col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ patient.name }}</h5>
+                    <div class="mt-3">
+                        <a href="{% url 'calendar' patient.id %}" class="btn btn-sm btn-outline-primary">Ver Calendario</a>
+                        <a href="{% url 'events-list' patient.id %}" class="btn btn-sm btn-outline-primary">Ver Eventos</a>
+                        <a href="{% url 'add-event' %}?id_patient={{patient.id}}&type=1" class="btn btn-sm btn-outline-success">Añadir Evento</a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'update-patient' patient.id %}" class="btn btn-sm btn-outline-secondary">Editar</a>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#deleteModal" data-name = "{{patient.name}}"
+                       data-url="{% url 'delete-patient' patient.id %}" data-id = "{{patient.id}}"
+                       class="open-delete-patient btn btn-sm btn-outline-danger">Eliminar</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% else %}
+    <div class="row text-center">
+        <div>
+            <h3>Vaya, parece que aún no tienes ningún calendario..</h3>
+            <a href="{% url 'add-patient' %}" class="btn btn-outline-success mt-3">Añadir calendario</a>
+        </div>
+    </div>
+{% endif %}
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">¿Estás seguro?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Éstas seguro de que deseas eliminar el calendario <strong id="modal-patient-name"> </strong>?
+          Se perderán todos los eventos creados.
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</a>
+        <a type="button" class="btn btn-danger" id="modal-patient-link" href="">Eliminar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

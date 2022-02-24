@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load my_calendar_extras %}
+{% block content %}
+        <div class="row justify-content-center">
+            {% if success %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card">
+                        <img src="https://static.arasaac.org/pictograms/{{ result|get_id }}/{{ result|get_id }}_300.png" class="card-img-top" alt="{{ result.keywords.0.keyword }}">
+                        <div class="card-body">
+                        <h5 class="card-title">{{ result.keywords.0.keyword|title }} </h5>
+                        <p class="card-text">{{ result.keywords.0.meaning }}</p>
+                        <div class="card-body">
+                            <a href="https://api.arasaac.org/api/pictograms/{{ result|get_id }}?download=true" class="btn btn-outline-primary">Descargar</a>
+                            <a href="{% url 'patients-list' %}" class="btn btn-outline-success">Emplear en calendario</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% else %}
+                {{ msg }}
+            {% endif %}
+        </div>
+{% endblock content %}

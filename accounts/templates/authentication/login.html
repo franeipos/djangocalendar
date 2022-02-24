@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row text-center justify-content-center">
+    <div class="col-md-6 bg-white p-3 rounded">
+        <h1 class="mb-4"> Log in </h1>
+        <form method="post" action=".">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Nombre de usuario</label>
+                <input type="text" class="form-control" id="username" name="username">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <button type="submit" class="btn btn-outline-primary">Entrar</button>
+            {% if next is not None %}
+                <input type="hidden" name="next" value="{{next}}" />
+            {% endif %}
+        </form>
+        <div class="mt-4">
+            <a href="{% url 'password_reset' %}">¿Olvidó su contraseña?</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}
