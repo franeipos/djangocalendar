@@ -46,3 +46,36 @@
 .errorlist li {
     color: red;
 }
+
+.week-header{
+    font-weight: normal;
+}
+
+.image-week-header{
+    width: 125px;
+}
+
+/* Style for each day of the weekheader */
+.mon{
+    color: blue;
+}
+
+.tue {
+    color: green;
+}
+
+.wed {
+    color: purple;
+}
+
+.thu {
+    color: orange;
+}
+
+.fri {
+    color: black;
+}
+
+.sat, .sun {
+    color: red;
+}

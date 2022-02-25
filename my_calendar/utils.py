@@ -36,6 +36,15 @@ class Calendar(HTMLCalendar):
             week += self.formatday(d, events, id_patient)
         return f'<tr> {week} </tr>'
 
+    def formatweekday(self, day):
+        """
+        Return a weekday name as a table header.
+        """
+        day_names = ["LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO", "DOMINGO"]
+        day_image = f'day_{day}'
+        return f'<th class="week-header {self.cssclasses_weekday_head[day]}">' \
+               f'<img class = "image-week-header my-1" src="/media/images/{day_image}.png"></br> {day_names[day]}</th>'
+
         # formats a month as a table
         # filter events by year, month and patient
     def formatmonth(self, id_patient, withyear=True):
