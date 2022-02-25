@@ -26,8 +26,8 @@
             {% endif %}
 
             <input name="image" type="file" accept="image/*" class="form-control my-3">
-            <input name="patient_calendar" type="number"  class="form-control my-3" value="{{id_patient}}" required>
-            <input name="type" type="number" class="form-control my-2" value="{{type}}" required>
+            <input name="patient_calendar" type="number"  class="form-control my-3" value="{{id_patient}}" required hidden>
+            <input name="type" type="number" class="form-control my-2" value="{{type}}" required hidden>
             <input type="submit" name="submit" value="Crear" class="btn btn-outline-primary my-3">
         </form>
     </div>

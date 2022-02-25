@@ -9,6 +9,15 @@ from .forms import RegisterUserForm, UserForm
 
 
 def login_user(request):
+    """
+    Login user that has been signed up before.
+    :param request:
+    :return: returns list of calendars if the user is logged in or the login page otherwise.
+    """
+
+    if request.user.is_authenticated:
+        return redirect('patients-list')
+
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']

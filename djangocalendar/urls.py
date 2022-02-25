@@ -47,7 +47,7 @@ from accounts.views import (
 
 urlpatterns = [
                 path('admin/', admin.site.urls),
-                path('', home_view, name="home"),
+                path('', login_user, name="home"),
                 path('calendar/<int:id_patient>/', calendar_view, name="calendar"),
                 path('calendar/<int:id_patient>/<int:month>/<int:year>/', calendar_view, name="calendar"),
                 path('calendar/event_detail/<int:event_id>/', event_detail, name="event-detail"),
