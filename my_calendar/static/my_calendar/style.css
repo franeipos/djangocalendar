@@ -79,3 +79,7 @@
 .sat, .sun {
     color: red;
 }
+
+.month {
+    text-transform: uppercase;
+}
