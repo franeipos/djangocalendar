@@ -43,6 +43,7 @@ from accounts.views import (
     register_user,
     user_detail,
     update_user,
+    activate_account,
 )
 
 urlpatterns = [
@@ -97,5 +98,7 @@ urlpatterns = [
                 path('accounts/reset/done/', auth_views.PasswordResetCompleteView.as_view(
                   template_name='password_reset/password_reset_complete.html'),
                    name='password_reset_complete'),
+
+                path('accounts/activate_account/<uidb64>/<token>/', activate_account, name='activate-account')
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

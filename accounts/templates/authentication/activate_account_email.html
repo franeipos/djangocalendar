@@ -1,0 +1,5 @@
+{% autoescape off %}
+Hola {{ user.username }},
+Por favor, haga click sobre el enlace para activar su cuenta en PictoCal:
+http://{{ domain }}{% url 'activate-account' uidb64=uid token=token %}
+{% endautoescape %}
