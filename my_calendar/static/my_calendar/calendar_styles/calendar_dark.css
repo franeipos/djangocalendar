@@ -1,0 +1,17 @@
+#body {
+    background: black !important;
+    color: white;
+}
+
+.calendar{
+    background: black;
+ }
+
+.calendar tr, .calendar td {
+  border: 1px solid white;
+  color: white;
+}
+
+.fri {
+    color: white;
+}

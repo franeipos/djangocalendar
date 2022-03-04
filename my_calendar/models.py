@@ -7,6 +7,8 @@ from datetime import datetime
 # Create your models here.
 class PatientCalendar(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    template_style = models.PositiveSmallIntegerField(blank=False, null=False, default=1)  # 1:base, 2:dark, 3:
+    # summer, 4:winter, 5:autumn, 6:spring
     therapist = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):

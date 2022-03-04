@@ -3,7 +3,19 @@
 {% load static %}
 
 {% block style %}
-    <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_base.css' %}">
+    {% if patient_calendar.template_style == 2 %}
+        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_dark.css' %}">
+    {% elif patient_calendar.template_style == 3 %}
+        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_summer.css' %}">
+    {% elif patient_calendar.template_style == 4 %}
+        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_winter.css' %}">
+    {% elif patient_calendar.template_style == 5 %}
+        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_winter.css' %}">
+    {% elif patient_calendar.template_style == 6 %}
+        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_winter.css' %}">
+    {% else %}
+        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_base.css' %}">
+    {% endif %}
 {% endblock %}
 
 {% block content %}
