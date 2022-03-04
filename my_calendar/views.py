@@ -60,7 +60,8 @@ def calendar_view(request, id_patient, month=datetime.now().month, year=datetime
         'year': year,
         'month_event': month_event,
         'season_event': season_event,
-        'weather_event': weather_event
+        'weather_event': weather_event,
+        'patient_calendar': PatientCalendar.objects.get(id=id_patient)
     }
     print(context['season_event'])
     return render(request, "my_calendar/calendar.html", context)

@@ -1,0 +1,10 @@
+
+.calendar{
+    background: white;
+ }
+
+.calendar tr, .calendar td {
+  border: 1px solid black;
+}
+
+

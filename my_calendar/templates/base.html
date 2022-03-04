@@ -14,6 +14,9 @@
 
     <!-- Custon CSS-->
     <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/style.css' %}">
+    {% block style %}
+        <!-- Custom CSS for each calendar template -->
+    {% endblock %}
 
     <title>PictoCal</title>
   </head>

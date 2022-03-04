@@ -2,9 +2,19 @@
 
 {% load static %}
 
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_base.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="row justify-content-center text-center">
-    <div class="col-3 mt-3 mb-5">
+    <h1>
+        {{ patient_calendar.name }}
+    </h1>
+</div>
+
+<div class="row justify-content-center text-center my-5">
+    <div class="col-3">
         <form method="post" action="">
             {% csrf_token %}
             <label for="month" class="form-label fw-bold fs-6">Seleccione el mes:</label>
@@ -60,3 +70,6 @@
     {{ calendar }}
 
 {% endblock content %}
+
+<!-- TODO: Añadir institucion en registro.
+Intentar crear plantillas distintas de calendarios. -->

@@ -2,12 +2,8 @@
   width: 98%;
   margin: auto;
   font-size: 13px;
-  background:white;
 }
 
-.calendar tr, .calendar td {
-  border: 1px solid black;
-}
 
 .calendar th {
   padding: 10px;
