@@ -43,7 +43,7 @@ class Calendar(HTMLCalendar):
         day_names = ["LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO", "DOMINGO"]
         day_image = f'day_{day}'
         return f'<th class="week-header {self.cssclasses_weekday_head[day]}">' \
-               f'<img class = "image-week-header my-1" src="/media/images/{day_image}.png"></br> {day_names[day]}</th>'
+               f'<img class = "image-week-header my-1" src="/media/week_days/{day_image}.png"></br> {day_names[day]}</th>'
 
         # formats a month as a table
         # filter events by year, month and patient
