@@ -42,13 +42,15 @@ class EventForm(ModelForm):
 class PatientForm(ModelForm):
     class Meta:
         model = PatientCalendar
-        fields = ('name', 'therapist')
+        fields = ('name', 'template_style', 'therapist')
         labels = {
             'name': '',
-            'therapist': ''
+            'therapist': '',
+            'template_style': '',
         }
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
+            'template_style': forms.NumberInput(attrs={'class': 'form-control'}),
             'therapist': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Terapeuta', 'hidden': 'True'}),
         }

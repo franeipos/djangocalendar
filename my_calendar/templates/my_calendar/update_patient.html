@@ -6,7 +6,47 @@
         <h1 class="text-center mb-3"> Editar Calendario </h1>
         <form action="." method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+<!--            {{ form.as_p }}-->
+
+            <input type="text" name="name" class="form-control my-3" placeholder="Nombre" maxlength="50" required id="id_name" value="{{ patient.name }}">
+            <input type="number" name="therapist" class="form-control mb-3" placeholder="Terapeuta" id="id_therapist" hidden required value="{{user.id}}">
+
+            <div class="my-4">
+                <h6 class="my-2"> Estilo del calendario: </h6>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="template_style" id="inlineRadio1" value="1"
+                           {% if patient.template_style == 1 %}
+                                checked
+                           {%endif %}
+                    >
+                    <label class="form-check-label" for="inlineRadio1">Estándar</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="template_style" id="inlineRadio2" value="2"
+                            {% if patient.template_style == 2 %}
+                                checked
+                           {%endif %}
+                    >
+                    <label class="form-check-label" for="inlineRadio2">Oscuro</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="template_style" id="inlineRadio3" value="3"
+                            {% if patient.template_style == 3 %}
+                                checked
+                           {%endif %}
+                    >
+                    <label class="form-check-label" for="inlineRadio3">Cálido</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="template_style" id="inlineRadio4" value="4"
+                            {% if patient.template_style == 4 %}
+                                checked
+                           {%endif %}
+                    >
+                    <label class="form-check-label" for="inlineRadio4">Frío</label>
+                </div>
+            </div>
+
             <input type="submit" name="submit" value="Editar" class="btn btn-outline-primary">
             <a class="btn btn-outline-danger" href="{% url 'patients-list' %}">Cancelar</a>
         </form>

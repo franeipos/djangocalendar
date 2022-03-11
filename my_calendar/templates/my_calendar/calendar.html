@@ -58,7 +58,9 @@
                 {% if season_event %}
                     {% for event in season_event %}
                         <a class="fs-6" href="{% url 'event-detail' event.id %}"> {{event.title}} </a> <br>
+                        {% if event.image is not None %}
                             <img src="{{event.image.url}}">
+                        {% endif %}
                     {% endfor %}
                 {% endif %}
             </div>
@@ -69,7 +71,7 @@
                 {% if weather_event %}
                     {% for event in weather_event %}
                         <a class="fs-6" href="{% url 'event-detail' event.id %}"> {{event.title}} </a> <br>
-                        {% if event.image %}
+                        {% if event.image is not None %}
                             <img src="{{event.image.url}}">
                         {% endif %}
                     {% endfor %}
@@ -84,4 +86,6 @@
 {% endblock content %}
 
 <!-- TODO: Añadir institucion en registro.
-Intentar crear plantillas distintas de calendarios. -->
+     TODO: Intentar crear plantillas distintas de calendarios.
+     TODO: Cambiar mensaje de restablecer contraseña, aparece el dominio www.gtec.udc.es -> cambiar por PictoCal.
+     -->

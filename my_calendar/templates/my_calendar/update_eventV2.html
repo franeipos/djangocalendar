@@ -19,7 +19,7 @@
         <form action="." method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <input name="title" type="text" placeholder="Nombre" class="form-control my-3" required maxlength="200" value="{{ event.title }}">
-            <input name="description" type="text" placeholder="Descripción" class="form-control my-3" value="{{ event.descripcion }}">
+            <input name="description" type="text" placeholder="Descripción" class="form-control my-3" value="{{ event.description }}">
 
             {% if event.type == 1 %}
                 <input name="date" type="date" placeholder="Seleccione una fecha" class="form-control my-3" value="{{ event.date|date:'Y-m-d' }}" required>

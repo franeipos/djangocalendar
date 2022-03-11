@@ -182,12 +182,14 @@ def update_event(request, event_id):
 def delete_event(request, event_id):
     context = {}
     event = Event.objects.get(id=event_id)
-    patient = event.patient_calendar.id
+    id_patient = event.patient_calendar.id
+    month = event.date.month
+    year = event.date.year
     if event.image and os.path.exists(event.image.path):
         os.remove(event.image.path)
     event.delete()
     messages.success(request, 'EXITO! EL evento se ha eliminao correctamente.')
-    return redirect('events-list', patient)
+    return redirect('calendar', id_patient, month, year)
 
 
 def search_pictograms(request):
@@ -245,6 +247,7 @@ def patients_list(request):
 
 @login_required
 def add_patient(request):
+
     if request.method == "POST":
         form = PatientForm(request.POST)
         if form.is_valid():
@@ -255,7 +258,7 @@ def add_patient(request):
         form = PatientForm(initial={'therapist': request.user.id})
 
     context = {
-        'form': form
+        'form': form,
     }
     return render(request, 'my_calendar/add_patient.html', context)
 
@@ -274,6 +277,7 @@ def update_patient(request, id_patient):
     patient = PatientCalendar.objects.get(id=id_patient)
     form = PatientForm(request.POST or None, instance=patient)
     context['form'] = form
+    context['patient'] = patient
 
     if form.is_valid():
         form.save()
