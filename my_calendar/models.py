@@ -6,10 +6,13 @@ from datetime import datetime
 
 # Create your models here.
 class PatientCalendar(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50, blank=False, null=False, default="Nombre Calendario")
     template_style = models.PositiveSmallIntegerField(blank=False, null=False, default=1)  # 1:base, 2:dark, 3:
     # summer, 4:winter, 5:autumn, 6:spring
     therapist = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        unique_together = ('name', 'therapist',)  # a therapist cannot repeat the calendar name
 
     def __str__(self):
         return self.name  # just to see the title in admin area
