@@ -1,10 +1,10 @@
 #body {
-    background: black !important;
+    background: #202124 !important;
     color: white;
 }
 
 .calendar{
-    background: black;
+    background: #303134;
  }
 
 .calendar tr, .calendar td {
