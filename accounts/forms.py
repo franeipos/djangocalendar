@@ -2,6 +2,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 
+from .models import Therapist
+
 
 class RegisterUserForm(UserCreationForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'required': 'True'}))
@@ -24,4 +26,10 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email']
+
+
+class TherapistForm(forms.ModelForm):
+    class Meta:
+        model = Therapist
+        fields = ['institution', ]
 
