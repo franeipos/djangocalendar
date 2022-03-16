@@ -9,7 +9,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import EmailMessage
 
-from .forms import RegisterUserForm, UserForm
+from .forms import RegisterUserForm, UserForm, TherapistForm
 # Create your views here.
 from .token import account_activation_token
 
@@ -36,7 +36,16 @@ def login_user(request):
             else:
                 return redirect('patients-list')
         else:
-            messages.error(request, 'ERROR: Nombre de usuario o contraseña incorrectas. Vuelva a intentarlo.')
+            try:
+                # Verify if the user exists but its account is not active.
+                user_temp = User.objects.filter(username=username)
+            except:
+                messages.error(request,
+                               'ERROR: Nombre de usuario o contraseña incorrectas. Vuelva a intentarlo.')
+            else:
+                messages.error(request,
+                               'ERROR: Su cuenta no ha sido activdada. Por favor, revise su correo y actívela.')
+
             return redirect('login')
     else:
         next_url = request.GET.get('next', None)
@@ -52,11 +61,21 @@ def logout_user(request):
 
 def register_user(request):
     if request.method == 'POST':
-        form = RegisterUserForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            user.active = False
+        form_user = RegisterUserForm(request.POST)
+        form_therapist = TherapistForm(request.POST)
+
+        if form_user.is_valid() and form_therapist.is_valid():
+            # Save user info and verify is is not active until email conrfirmation.
+            user = form_user.save()
+            user.is_active = True
             user.save()
+
+            # Save the therapist extra info associated to the user.
+            print(form_therapist.cleaned_data)
+            user.therapist.institution = form_therapist.cleaned_data.get('institution')
+            user.save()
+
+            # Send activation email.
             current_site = get_current_site(request)
             mail_subject = 'Active su cuenta en PictoCal.'
             message = render_to_string('authentication/activate_account_email.html', {
@@ -65,7 +84,7 @@ def register_user(request):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
-            to_email = form.cleaned_data.get('email')
+            to_email = form_user.cleaned_data.get('email')
             email = EmailMessage(
                 mail_subject, message, to=[to_email]
             )
@@ -73,11 +92,14 @@ def register_user(request):
             messages.success(request, 'EXITO: Se ha enviado un correo para que active su cuenta.')
             return redirect('login')
     else:
-        form = RegisterUserForm()
+        form_user = RegisterUserForm()
+        form_therapist = TherapistForm()
 
     context = {
-        'form': form
+        'form_user': form_user,
+        'form_therapist': form_therapist
     }
+
     return render(request, 'authentication/register_user.html', context)
 
 
@@ -95,16 +117,20 @@ def update_user(request, user_id):
 
     if request.method == "POST":
         if user is not None:
-            form = UserForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
+            form_user = UserForm(request.POST, instance=user)
+            form_therapist = TherapistForm(request.POST, instance=user.therapist)
+        if form_user.is_valid() and form_therapist.is_valid():
+            form_user.save()
+            form_therapist.save()
             return redirect('user-detail', user.id)
 
     else:
-        form = UserForm(instance=user)
+        form_user = UserForm(instance=user)
+        form_therapist = TherapistForm(instance=user.therapist)
 
     context = {
-        'form': form
+        'form_user': form_user,
+        'form_therapist': form_therapist
     }
     return render(request, 'user_data/update_user.html', context)
 

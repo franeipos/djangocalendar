@@ -4,16 +4,44 @@
 <div class="row justify-content-center">
     <div class="shadow-none p-3 mb-5 bg-white rounded col-md-6">
         <h1 class="text-center mb-4"> Registro </h1>
-        {% if form.errors %}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                ERROR: Hubo un error con el formulario. Vuelva a intentarlo.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endif %}
+        {% for field in form_user %}
+            {% for error in field.errors %}
+                <p style="color: red"><i class="bi bi-exclamation-circle"></i> {{ error }}</p>
+            {% endfor %}
+        {% endfor %}
+        {% for field in form_therapist %}
+            {% for error in field.errors %}
+                <p style="color: red"><i class="bi bi-exclamation-circle"></i> {{ error }}</p>
+            {% endfor %}
+        {% endfor %}
 
-        <form method="post" action=".">
+<!--        <form method="post" action=".">-->
+<!--            {% csrf_token %}-->
+<!--            {{ form_user.as_p }}-->
+<!--            {{ form_therapist.as_p }}-->
+<!--            <button type="submit" class="btn btn-outline-primary">Registrarse</button>-->
+<!--        </form>-->
+        <form action="." method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="mb-3">
+                <input type="text" name="username" placeholder="Nombre de usuario" value="" maxlength="150" autofocus="" class="form-control" required="" id="id_username" aria-describedby="usernameHelp">
+                <div id="usernameHelp" class="form-text">Obligatorio. 150 carácteres como máximo. Únicamente letras, dígitos y @/./+/-/_</div>
+            </div>
+            <div class="mb-3">
+                <input type="email" name="email" placeholder="Email" value="" class="form-control" required="" id="id_email" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">Obligatorio</div>
+            </div>
+            <div class="mb-3">
+                <input type="password" name="password1" autocomplete="new-password" class="form-control" required="" id="id_password1" aria-autocomplete="list" placeholder="Contraseña" aria-describedby="passwordHelp">
+                <div id="passwordHelp" class="form-text">Mínimo 8 caracteres. No emplee una contraseña muy común ni similar a su email o nombre de usuario.</div>
+            </div>
+            <div class="mb-3">
+                <input type="password" name="password2" autocomplete="new-password" class="form-control" required="" id="id_password2" placeholder="Repita Contraseña" aria-describedby="2passHelp">
+                <div id="2passHelp" class="form-text">Repita su contraseña para validarla.</div>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="institution" maxlength="30" id="id_institution" placeholder="Institucion" aria-describedby="institutionHelp" class="form-control">
+            </div>
             <button type="submit" class="btn btn-outline-primary">Registrarse</button>
         </form>
     </div>
