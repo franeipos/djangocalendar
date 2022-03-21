@@ -11,7 +11,10 @@ from .models import Event
 
 class Calendar(HTMLCalendar):
     def __init__(self, year=None, month=None):
-        locale.setlocale(locale.LC_ALL, 'es_ES')  # set ES as language for the calendar.
+        if settings.DEBUG:
+            locale.setlocale(locale.LC_ALL, 'es_ES')  # set ES as language for the calendar in local server.
+        else:
+            locale.setlocale(locale.LC_ALL, 'es_ES.UTF-8')  # set ES as language for the calendar.
         self.year = year
         self.month = month
         super(Calendar, self).__init__()
