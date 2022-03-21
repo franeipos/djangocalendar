@@ -44,6 +44,7 @@ from accounts.views import (
     user_detail,
     update_user,
     activate_account,
+    send_activation_mail
 )
 
 urlpatterns = [
@@ -99,6 +100,8 @@ urlpatterns = [
                   template_name='password_reset/password_reset_complete.html'),
                    name='password_reset_complete'),
 
-                path('accounts/activate_account/<uidb64>/<token>/', activate_account, name='activate-account')
+                path('accounts/activate_account/<uidb64>/<token>/', activate_account, name='activate-account'),
+                path('accounts/send_activation_mail/<int:user_id>/', send_activation_mail, name='send-activation-mail')
+
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
