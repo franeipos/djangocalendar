@@ -8,6 +8,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import EmailMessage
+from django.utils.safestring import mark_safe
 
 from .forms import RegisterUserForm, UserForm, TherapistForm
 # Create your views here.
@@ -36,16 +37,17 @@ def login_user(request):
             else:
                 return redirect('patients-list')
         else:
-            # Verify if the user exists but its account is not active.
-            user_temp = User.objects.filter(username=username)
-            print(user_temp)
-            if not user_temp:
+            try:
+                # Verify if the user exists but its account is not active.
+                user_temp = User.objects.get(username=username)
+            except:
                 messages.error(request,
                                'ERROR: Nombre de usuario o contraseña incorrectas. Vuelva a intentarlo.')
             else:
-                messages.error(request,
-                               'ERROR: Su cuenta no ha sido activdada. Por favor, revise su correo y actívela.'
-                               'Volver a enviar link')
+                message = f'ERROR: Su cuenta no ha sido activdada. Por favor, revise su correo y actívela.' \
+                          f'<a href="{redirect("send-activation-mail", user_temp.id).url}"> Volver a enviar correo</a>'
+
+                messages.error(request, mark_safe(message))
 
             return redirect('login')
     else:
@@ -90,9 +92,7 @@ def register_user(request):
             #     mail_subject, message, to=[to_email]
             # )
             # email.send()
-            send_activation_mail(user, get_current_site(request), form_user.cleaned_data.get('email'))
-            messages.success(request, 'EXITO: Se ha enviado un correo para que active su cuenta.')
-            return redirect('login')
+            return redirect('send-activation-mail', user.id)
     else:
         form_user = RegisterUserForm()
         form_therapist = TherapistForm()
@@ -155,13 +155,13 @@ def activate_account(request, uidb64, token):
     return redirect('login')
 
 
-def send_activation_mail(user, current_site, to_email):
+def send_activation_mail(request, user_id):
     """
     Sends the account activation email.
-    :param user:
-    :param current_site:
-    :param to_email:
     """
+    user = User.objects.get(id=user_id)
+    to_email = user.email
+    current_site = get_current_site(request)
     mail_subject = 'Active su cuenta en PictoCal.'
     message = render_to_string('authentication/activate_account_email.html', {
         'user': user,
@@ -172,4 +172,10 @@ def send_activation_mail(user, current_site, to_email):
     email = EmailMessage(
         mail_subject, message, to=[to_email]
     )
-    email.send()
+    try:
+        email.send()
+    except:
+        messages.ERROR(request, 'ERROR: Se ha producido un error. Vuelva a intentarlo')
+    else:
+        messages.success(request, 'EXITO: Se ha enviado un correo para que active su cuenta.')
+    return redirect('login')
