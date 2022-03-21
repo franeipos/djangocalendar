@@ -53,7 +53,7 @@ class Calendar(HTMLCalendar):
     def formatmonth(self, id_patient, withyear=True):
         events = Event.objects.filter(date__year=self.year, date__month=self.month, patient_calendar=id_patient, type=1)
 
-        cal = f'<table border="0" cellpadding="0" cellspacing="0" class="calendar">\n'
+        cal = f'<table border="0" cellpadding="0" cellspacing="0" class="calendar table">\n'
         cal += f'{self.formatmonthname(self.year, self.month, withyear=withyear)}\n'
         cal += f'{self.formatweekheader()}\n'
         for week in self.monthdays2calendar(self.year, self.month):

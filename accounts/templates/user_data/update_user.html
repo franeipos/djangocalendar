@@ -6,20 +6,20 @@
         <h1 class="text-center mb-3"> Editar Datos</h1>
         {% for field in form_user %}
             {% for error in field.errors %}
-                <p style="color: red"><i class="bi bi-exclamation-circle"></i> {{ error }}</p>
+                <p style="color: red"><i class="bi bi-exclamation-circle"></i> {{ field.name }}: {{ error }}</p>
             {% endfor %}
         {% endfor %}
         {% for field in form_therapist %}
             {% for error in field.errors %}
-                <p style="color: red"><i class="bi bi-exclamation-circle"></i> {{ error }}</p>
+                <p style="color: red"><i class="bi bi-exclamation-circle"></i> {{ field.name }}: {{ error }}</p>
             {% endfor %}
         {% endfor %}
 
         <form action="." method="post">
             {% csrf_token %}
             <div class="mb-3">
-                <input type="text" name="username" value="{{user.username}}" maxlength="150" required="" id="id_username" aria-describedby="usernameHelp" class="form-control" placeholder="Nombre de usuario">
-                <small id="usernameHelp" class="form-text text-muted">Únicamente letras, dígitos y @/./+/-/_ </small>
+                <input type="text" name="username" value="{{user.username}}" maxlength="150" required="" id="id_username" aria-describedby="usernameHelp" class="form-control" placeholder="Nombre de usuario" readonly>
+<!--                <small id="usernameHelp" class="form-text text-muted">Para modificar el nombre de usuario hable con el administrador del sistema. </small>-->
             </div>
             <div class="mb-3">
                 <input type="email" name="email" value="{{user.email}}" maxlength="254" id="id_email" class="form-control" placeholder="Dirección de correo electrónico">
@@ -29,6 +29,7 @@
             </div>
 
             <input type="submit" name="submit" value="Editar" class="btn btn-outline-primary my-3">
+            <a class="btn btn-outline-danger" href="{% url 'user-detail' user.id %}">Cancelar</a>
         </form>
         </h1>
     </div>

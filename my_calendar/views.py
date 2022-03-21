@@ -269,7 +269,7 @@ def update_patient(request, id_patient):
     Actualizar datos del calendario enviado por id_patient
     :param request:
     :param id_patient: id del calendario a actualizar
-    :return: si los datos son validos se redirecciona a la lista de calendarios. Si la peticion es GET se renderiza el
+    :return: si los datos son validos se redirecciona al calendario. Si la peticion es GET se renderiza el
     formulario para actualizar los datos.
     """
 
@@ -282,7 +282,7 @@ def update_patient(request, id_patient):
     if form.is_valid():
         form.save()
         messages.success(request, "EXITO! El calendario ha sido actualizado!")
-        return redirect('patients-list')
+        return redirect('calendar', id_patient)
 
     return render(request, 'my_calendar/update_patient.html', context)
 

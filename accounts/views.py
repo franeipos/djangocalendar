@@ -36,15 +36,16 @@ def login_user(request):
             else:
                 return redirect('patients-list')
         else:
-            try:
-                # Verify if the user exists but its account is not active.
-                user_temp = User.objects.filter(username=username)
-            except:
+            # Verify if the user exists but its account is not active.
+            user_temp = User.objects.filter(username=username)
+            print(user_temp)
+            if not user_temp:
                 messages.error(request,
                                'ERROR: Nombre de usuario o contraseña incorrectas. Vuelva a intentarlo.')
             else:
                 messages.error(request,
-                               'ERROR: Su cuenta no ha sido activdada. Por favor, revise su correo y actívela.')
+                               'ERROR: Su cuenta no ha sido activdada. Por favor, revise su correo y actívela.'
+                               'Volver a enviar link')
 
             return redirect('login')
     else:
@@ -67,7 +68,7 @@ def register_user(request):
         if form_user.is_valid() and form_therapist.is_valid():
             # Save user info and verify is is not active until email conrfirmation.
             user = form_user.save()
-            user.is_active = True
+            user.is_active = False
             user.save()
 
             # Save the therapist extra info associated to the user.
@@ -76,19 +77,20 @@ def register_user(request):
             user.save()
 
             # Send activation email.
-            current_site = get_current_site(request)
-            mail_subject = 'Active su cuenta en PictoCal.'
-            message = render_to_string('authentication/activate_account_email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
-            to_email = form_user.cleaned_data.get('email')
-            email = EmailMessage(
-                mail_subject, message, to=[to_email]
-            )
-            email.send()
+            # current_site = get_current_site(request)
+            # mail_subject = 'Active su cuenta en PictoCal.'
+            # message = render_to_string('authentication/activate_account_email.html', {
+            #     'user': user,
+            #     'domain': current_site.domain,
+            #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            #     'token': account_activation_token.make_token(user),
+            # })
+            # to_email = form_user.cleaned_data.get('email')
+            # email = EmailMessage(
+            #     mail_subject, message, to=[to_email]
+            # )
+            # email.send()
+            send_activation_mail(user, get_current_site(request), form_user.cleaned_data.get('email'))
             messages.success(request, 'EXITO: Se ha enviado un correo para que active su cuenta.')
             return redirect('login')
     else:
@@ -151,3 +153,23 @@ def activate_account(request, uidb64, token):
         messages.error(request, "ERROR! El enlace de activación no es válido.")
 
     return redirect('login')
+
+
+def send_activation_mail(user, current_site, to_email):
+    """
+    Sends the account activation email.
+    :param user:
+    :param current_site:
+    :param to_email:
+    """
+    mail_subject = 'Active su cuenta en PictoCal.'
+    message = render_to_string('authentication/activate_account_email.html', {
+        'user': user,
+        'domain': current_site.domain,
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': account_activation_token.make_token(user),
+    })
+    email = EmailMessage(
+        mail_subject, message, to=[to_email]
+    )
+    email.send()
