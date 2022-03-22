@@ -54,3 +54,11 @@ class PatientForm(ModelForm):
             'template_style': forms.NumberInput(attrs={'class': 'form-control'}),
             'therapist': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Terapeuta', 'hidden': 'True'}),
         }
+
+    def clean(self):
+        data = self.cleaned_data
+        calendars = PatientCalendar.objects.filter(name=data.get('name'), therapist=data.get('therapist')).exclude(
+            pk=self.instance.pk)
+        if calendars:
+            self.add_error('name', 'Ya existe un calendario con este nombre')
+        return data

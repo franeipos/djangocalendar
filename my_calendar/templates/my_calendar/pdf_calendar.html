@@ -7,7 +7,14 @@
     <style>
         @page {
             size: "A4";
-            margin: .2cm .2cm .2cm .2cm;
+            margin: .0cm .0cm .0cm .0cm;
+        }
+
+        #body{
+            margin: 0 !important;
+            padding: 0 !important;
+            border:0 !important;
+            outline:0 !important;
         }
 
         .calendar {
@@ -97,10 +104,22 @@
         }
 
     </style>
+
+      {% load static %}
+
+    {% if patient_calendar.template_style == 2 %}
+        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_dark.css' %}">
+    {% elif patient_calendar.template_style == 3 %}
+        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_summer.css' %}">
+    {% elif patient_calendar.template_style == 4 %}
+        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_winter.css' %}">
+    {% else %}
+        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_base.css' %}">
+    {% endif %}
   </head>
 
-  <body>
-    <h3 class="titulo"> {{nombre}} {{ apellido1 }} {{ apellido2 }} </h3>
+  <body id="body">
+    <h3 class="titulo"> {{nombre}} </h3>
 
     <table class="calendar titulo">
     <tr>

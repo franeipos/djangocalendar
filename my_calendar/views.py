@@ -254,6 +254,8 @@ def add_patient(request):
             form.save()
             messages.success(request, "EXITO! El paciente se ha creado correctamente.")
             return redirect('patients-list')
+        else:
+            print(form.errors.as_data())
     else:
         form = PatientForm(initial={'therapist': request.user.id})
 
@@ -275,14 +277,21 @@ def update_patient(request, id_patient):
 
     context = {}
     patient = PatientCalendar.objects.get(id=id_patient)
-    form = PatientForm(request.POST or None, instance=patient)
+
+    if request.method == 'POST':
+        form = PatientForm(request.POST, instance=patient)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "EXITO! El calendario ha sido actualizado!")
+            return redirect('calendar', id_patient)
+        else:
+            print(form.errors)
+    else:
+        form = PatientForm(instance=patient)
+
     context['form'] = form
     context['patient'] = patient
-
-    if form.is_valid():
-        form.save()
-        messages.success(request, "EXITO! El calendario ha sido actualizado!")
-        return redirect('calendar', id_patient)
 
     return render(request, 'my_calendar/update_patient.html', context)
 
@@ -320,7 +329,8 @@ def calendar_to_pdf(request, id_patient, month=datetime.now().month, year=dateti
         "nombre": patient.name,
         'month_event': month_event,
         'season_event': season_event,
-        'weather_event': weather_event
+        'weather_event': weather_event,
+        'patient_calendar':patient
     }
     html = render_to_string('my_calendar/pdf_calendar.html', context)
     response = HttpResponse(content_type="application/pdf")

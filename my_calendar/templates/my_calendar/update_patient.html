@@ -4,10 +4,15 @@
 <div class="row justify-content-center">
     <div class="col-md-6 rounded bg-white p-3">
         <h1 class="text-center mb-3"> Editar Calendario </h1>
+
+        {% for field in form %}
+            {% for error in field.errors %}
+                <p style="color: red"><i class="bi bi-exclamation-circle"></i> {{ error }}</p>
+            {% endfor %}
+        {% endfor %}
+
         <form action="." method="post">
             {% csrf_token %}
-<!--            {{ form.as_p }}-->
-
             <input type="text" name="name" class="form-control my-3" placeholder="Nombre" maxlength="50" required id="id_name" value="{{ patient.name }}">
             <input type="number" name="therapist" class="form-control mb-3" placeholder="Terapeuta" id="id_therapist" hidden required value="{{user.id}}">
 
@@ -21,14 +26,14 @@
                     >
                     <label class="form-check-label" for="inlineRadio1">Estándar</label>
                 </div>
-                <div class="form-check form-check-inline">
+                <!-- <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="template_style" id="inlineRadio2" value="2"
                             {% if patient.template_style == 2 %}
                                 checked
                            {%endif %}
                     >
                     <label class="form-check-label" for="inlineRadio2">Oscuro</label>
-                </div>
+                </div> -->
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="template_style" id="inlineRadio3" value="3"
                             {% if patient.template_style == 3 %}
