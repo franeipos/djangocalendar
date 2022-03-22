@@ -15,7 +15,11 @@
   width: 200px;
   height: 150px;
   padding: 20px 0px 0px 5px;
+}
 
+.calendar td a {
+  text-transform: uppercase;
+  text-decoration: none !important;
 }
 
 .month {

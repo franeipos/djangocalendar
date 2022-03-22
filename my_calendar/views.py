@@ -252,7 +252,7 @@ def add_patient(request):
         form = PatientForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "EXITO! El paciente se ha creado correctamente.")
+            messages.success(request, "EXITO! El calendario se ha creado correctamente.")
             return redirect('patients-list')
         else:
             print(form.errors.as_data())

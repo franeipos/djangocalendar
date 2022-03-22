@@ -24,20 +24,20 @@
         <form action="." method="post">
             {% csrf_token %}
             <div class="mb-3">
-                <input type="text" name="username" placeholder="Nombre de usuario" value="" maxlength="150" autofocus="" class="form-control" required="" id="id_username" aria-describedby="usernameHelp">
-                <div id="usernameHelp" class="form-text">Obligatorio. 150 carácteres como máximo. Únicamente letras, dígitos y @/./+/-/_</div>
+                <input type="text" name="username" placeholder="Nombre de usuario*" value="" maxlength="150" autofocus="" class="form-control" required="" id="id_username" aria-describedby="usernameHelp">
+                <div id="usernameHelp" class="form-text">*Obligatorio. 150 carácteres como máximo. Únicamente letras, dígitos y @/./+/-/_</div>
             </div>
             <div class="mb-3">
-                <input type="email" name="email" placeholder="Email" value="" class="form-control" required="" id="id_email" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">Obligatorio</div>
+                <input type="email" name="email" placeholder="Email*" value="" class="form-control" required="" id="id_email" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">*Obligatorio</div>
             </div>
             <div class="mb-3">
-                <input type="password" name="password1" autocomplete="new-password" class="form-control" required="" id="id_password1" aria-autocomplete="list" placeholder="Contraseña" aria-describedby="passwordHelp">
-                <div id="passwordHelp" class="form-text">Mínimo 8 caracteres. No emplee una contraseña muy común ni similar a su email o nombre de usuario.</div>
+                <input type="password" name="password1" autocomplete="new-password" class="form-control" required="" id="id_password1" aria-autocomplete="list" placeholder="Contraseña*" aria-describedby="passwordHelp">
+                <div id="passwordHelp" class="form-text">*Obligatorio. Mínimo 8 caracteres.</div>
             </div>
             <div class="mb-3">
-                <input type="password" name="password2" autocomplete="new-password" class="form-control" required="" id="id_password2" placeholder="Repita Contraseña" aria-describedby="2passHelp">
-                <div id="2passHelp" class="form-text">Repita su contraseña para validarla.</div>
+                <input type="password" name="password2" autocomplete="new-password" class="form-control" required="" id="id_password2" placeholder="Repita Contraseña*" aria-describedby="2passHelp">
+                <div id="2passHelp" class="form-text">*Obligatorio. Repita su contraseña para validarla.</div>
             </div>
             <div class="mb-3">
                 <input type="text" name="institution" maxlength="30" id="id_institution" placeholder="Institucion" aria-describedby="institutionHelp" class="form-control">

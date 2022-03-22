@@ -22,7 +22,7 @@
 <!--                <small id="usernameHelp" class="form-text text-muted">Para modificar el nombre de usuario hable con el administrador del sistema. </small>-->
             </div>
             <div class="mb-3">
-                <input type="email" name="email" value="{{user.email}}" maxlength="254" id="id_email" class="form-control" placeholder="Dirección de correo electrónico">
+                <input type="email" name="email" value="{{user.email}}" maxlength="254" id="id_email" class="form-control" placeholder="Dirección de correo electrónico" readonly required>
             </div>
             <div class="mb-3">
                 <input type="text" name="institution" value="{{user.therapist.institution}}" maxlength="30" id="id_institution" class="form-control" placeholder="Institución">
