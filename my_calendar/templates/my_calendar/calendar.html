@@ -45,8 +45,10 @@
                     {% if month_event %}
                         {% for event in month_event %}
                             <a class="fs-6" href="{% url 'event-detail' event.id %}"> {{event.title}} </a> <br>
-                            {% if event.image is not None %}
-                                <img src="{{ event.image.url}}">
+                            {% if event.url_image %}
+                                <img src="{{ event.url_image}}" alt="Imagen mes.">
+                            {% elif event.image %}
+                                <img src="{{ event.image.url}}" alt="Imagen mes.">
                             {% endif %}
                         {% endfor %}
                     {% endif %}
@@ -58,8 +60,10 @@
                     {% if season_event %}
                         {% for event in season_event %}
                             <a class="fs-6" href="{% url 'event-detail' event.id %}"> {{event.title}} </a> <br>
-                            {% if event.image is not None %}
-                                <img src="{{event.image.url}}">
+                            {% if event.url_image %}
+                                <img src="{{ event.url_image}}" alt="Imagen estación.">
+                            {% elif event.image %}
+                                <img src="{{ event.image.url}}" alt="Imagen estación.">
                             {% endif %}
                         {% endfor %}
                     {% endif %}
@@ -71,9 +75,11 @@
                     {% if weather_event %}
                         {% for event in weather_event %}
                             <a class="fs-6" href="{% url 'event-detail' event.id %}"> {{event.title}} </a> <br>
-                            {% if event.image is not None %}
-                                <img src="{{event.image.url}}">
-                            {% endif %}
+                            {% if event.url_image %}
+                                <img src="{{ event.url_image}}" alt="Imagen tiempo.">
+                            {% elif event.image %}
+                                <img src="{{ event.image.url}}" alt="Imagen tiempo.">
+                            {% endif %}}
                         {% endfor %}
                     {% endif %}
                 </div>

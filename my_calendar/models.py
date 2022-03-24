@@ -23,6 +23,7 @@ class Event(models.Model):
     description = models.TextField(blank=True)
     date = models.DateField()
     image = models.ImageField(blank=True, null=True, upload_to='images/')
+    url_image = models.URLField(blank=True, null=True)
     type = models.PositiveSmallIntegerField(blank=False, null=False, default=1)  # 1:day event, 2:month, 3:season,
     # 4:weather
     patient_calendar = models.ForeignKey(PatientCalendar, blank=False, default=1, on_delete=models.CASCADE)
