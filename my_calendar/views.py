@@ -103,7 +103,6 @@ def add_event(request, day=datetime.now().day, month=datetime.now().month, year=
             request.POST = post
 
         form = EventForm(request.POST, request.FILES)
-        form.image = '/image/aaa.png'
         if form.is_valid():
             new_event = form.save()
             messages.success(request, 'EXITO! El evento se ha creado correctamente.')
@@ -146,8 +145,10 @@ def update_event(request, event_id):
     context = {}
     event = Event.objects.get(id=event_id)
     context['event'] = event
+    print(request.method)
 
     if request.method == "POST":
+        print('entro if')
         # Si no es tipo evento, debemos añadir el dia 01 al mes para que lo admita la BD.
         if request.POST.get('type') != '1':
             print('entro')
@@ -330,7 +331,7 @@ def calendar_to_pdf(request, id_patient, month=datetime.now().month, year=dateti
         'month_event': month_event,
         'season_event': season_event,
         'weather_event': weather_event,
-        'patient_calendar':patient
+        'patient_calendar': patient
     }
     html = render_to_string('my_calendar/pdf_calendar.html', context)
     response = HttpResponse(content_type="application/pdf")

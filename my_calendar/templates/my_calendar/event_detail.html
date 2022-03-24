@@ -13,8 +13,11 @@
                 {% else %}
                     <h4> {{ event.date|date:"F \d\e Y" }} </h4>
                 {% endif %}
+
                 <p> {{ event.description }} </p>
-                {% if event.image %}
+                {% if event.url_image %}
+                    <img src="{{event.url_image }}" width="200px" height="200px">
+                {% elif event.image %}
                     <img src="{{event.image.url }}" width="200px" height="200px">
                 {% endif %}
 

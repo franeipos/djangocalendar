@@ -8,7 +8,7 @@ from .models import Event, PatientCalendar
 class EventForm(ModelForm):
     class Meta:
         model = Event
-        fields = ('title', 'date', 'patient_calendar', 'description', 'image', 'type')
+        fields = ('title', 'date', 'patient_calendar', 'description', 'image', 'type', 'url_image')
         labels = {
             'title': '',
             'description': '',
@@ -27,6 +27,13 @@ class EventForm(ModelForm):
             'patient_calendar': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Calendario', 'hidden': 'True'}),
             'type': forms.NumberInput(attrs={'class': 'form-control', 'hidden': 'True'}),
         }
+
+    # def clean(self):
+    #     data = self.cleaned_data
+    #     if data['image'] and data['url_image']:
+    #         self.add_error('image', 'No puede usar una imagen online y una de su ordenador. '
+    #                                 'Por favor, utilice solo una de las opciones.')
+    #     return data
 
     # def clean_date(self):
     #     new_date = self.cleaned_data.get('date')
