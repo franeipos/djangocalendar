@@ -44,10 +44,15 @@ def login_user(request):
                 messages.error(request,
                                'ERROR: Nombre de usuario o contraseña incorrectas. Vuelva a intentarlo.')
             else:
-                message = f'ERROR: Su cuenta no ha sido activdada. Por favor, revise su correo y actívela.' \
-                          f'<a href="{redirect("send-activation-mail", user_temp.id).url}"> Volver a enviar correo</a>'
+                if user_temp.is_active:
+                    messages.error(request,
+                                   'ERROR: Nombre de usuario o contraseña incorrectas. Vuelva a intentarlo.')
+                else:
+                    message = f'ERROR: Su cuenta no ha sido activdada. Por favor, revise su correo y actívela.' \
+                              f'<a href="{redirect("send-activation-mail", user_temp.id).url}"' \
+                              f'> Volver a enviar correo</a>'
 
-                messages.error(request, mark_safe(message))
+                    messages.error(request, mark_safe(message))
 
             return redirect('login')
     else:
