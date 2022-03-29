@@ -44,7 +44,6 @@ if DEBUG is False:
 else:
     ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [

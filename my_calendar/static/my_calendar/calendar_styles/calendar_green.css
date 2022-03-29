@@ -1,0 +1,13 @@
+#body {
+    background: #e9ffe8 !important;
+    color: black;
+}
+
+.calendar{
+    background: #d1e7dd;
+ }
+
+.calendar tr, .calendar td {
+  border: 1px solid black;
+  color: black;
+}
