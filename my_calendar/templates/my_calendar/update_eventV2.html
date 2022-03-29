@@ -14,16 +14,24 @@
         {% endif %}
         </h1>
 
+<!--        {% for key, errors in form.errors.items %}-->
+<!--            {% for error in errors %}-->
+<!--                <p style="color: red"><i class="bi bi-exclamation-circle"></i> {{ error }}</p>-->
+<!--            {% endfor %}-->
+<!--        {% endfor  %}-->
+
         {% for field in form %}
             {% for error in field.errors %}
-            <p style="color: red"><i class="bi bi-exclamation-circle"></i> {{ error }}</p>
+                {% if error != "" %}
+                    <p style="color: red"><i class="bi bi-exclamation-circle"></i> {{ error }}</p>
+                {% endif %}
             {% endfor %}
         {% endfor %}
 
         <form action="." method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <h5>Datos </h5>
-            <input name="title" type="text" placeholder="Nombre" class="form-control my-3" required maxlength="200" value="{{ event.title }}">
+            <input name="title" type="text" placeholder="Nombre" class="form-control my-3" maxlength="200" value="{{ event.title }}">
             <input name="description" type="text" placeholder="Descripción" class="form-control my-3" value="{{ event.description }}">
 
             {% if event.type == 1 %}

@@ -95,6 +95,31 @@ def add_event(request, day=datetime.now().day, month=datetime.now().month, year=
         'year': year
     }
 
+    event_date = f'{year}-{str(month).zfill(2)}-{str(day).zfill(2)}'
+
+    picto = request.GET.get('picto', 'None')
+    if picto is not None:
+        context['picto_id'] = picto
+
+    initial_values = {
+        'date': event_date
+    }
+
+    # Init the form with the given patient.
+    id_patient = request.GET.get('id_patient', None)
+    if id_patient is not None:
+        initial_values['patient_calendar'] = id_patient
+
+    # Init the form with the given type of event.
+    event_type = request.GET.get('type', None)
+    if event_type is not None:
+        initial_values['type'] = event_type
+    else:
+        initial_values['type'] = '1'
+
+    context['id_patient'] = id_patient
+    context['type'] = event_type
+
     if request.method == "POST":
         # Si no es tipo evento, debemos añadir el dia 01 al mes para que lo admita la BD.
         if request.POST.get('type') != '1':
@@ -107,32 +132,7 @@ def add_event(request, day=datetime.now().day, month=datetime.now().month, year=
             new_event = form.save()
             messages.success(request, 'EXITO! El evento se ha creado correctamente.')
             return redirect('event-detail', event_id=new_event.id)
-        else:
-            messages.error(request, 'UPS! Algo ha ido mal')
     else:
-        event_date = f'{year}-{str(month).zfill(2)}-{str(day).zfill(2)}'
-        picto = request.GET.get('picto', 'None')
-        if picto is not None:
-            context['picto_id'] = picto
-
-        initial_values = {
-            'date': event_date
-        }
-
-        # Init the form with the given patient.
-        id_patient = request.GET.get('id_patient', None)
-        if id_patient is not None:
-            initial_values['patient_calendar'] = id_patient
-
-        # Init the form with the given type of event.
-        event_type = request.GET.get('type', None)
-        if event_type is not None:
-            initial_values['type'] = event_type
-        else:
-            initial_values['type'] = '1'
-
-        context['id_patient'] = id_patient
-        context['type'] = event_type
         form = EventForm(initial=initial_values)
 
     context['form'] = form
@@ -145,13 +145,10 @@ def update_event(request, event_id):
     context = {}
     event = Event.objects.get(id=event_id)
     context['event'] = event
-    print(request.method)
 
     if request.method == "POST":
-        print('entro if')
         # Si no es tipo evento, debemos añadir el dia 01 al mes para que lo admita la BD.
         if request.POST.get('type') != '1':
-            print('entro')
             post = request.POST.copy()
             post['date'] = f'{post["date"]}-01'
             request.POST = post
@@ -175,6 +172,7 @@ def update_event(request, event_id):
         form = EventForm(instance=event)
 
     context['form'] = form
+    print(form.non_field_errors)
 
     return render(request, 'my_calendar/update_eventV2.html', context)
 

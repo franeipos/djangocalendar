@@ -17,38 +17,46 @@
             <input type="number" name="therapist" class="form-control mb-3" placeholder="Terapeuta" id="id_therapist" hidden required value="{{user.id}}">
 
             <div class="my-4">
-                <h6 class="my-2"> Estilo del calendario: </h6>
-                <div class="form-check form-check-inline">
+                <h6 class="mt-2 mb-3"> Estilo del calendario: </h6>
+                <div class="form-check form-check-inline mb-3">
                     <input class="form-check-input" type="radio" name="template_style" id="inlineRadio1" value="1"
                            {% if patient.template_style == 1 %}
                                 checked
                            {%endif %}
                     >
-                    <label class="form-check-label" for="inlineRadio1">Estándar</label>
+                    <label class="form-check-label" for="inlineRadio1">Fondo blanco</label>
                 </div>
-                <!-- <div class="form-check form-check-inline">
+                <div class="form-check form-check-inline mb-3">
                     <input class="form-check-input" type="radio" name="template_style" id="inlineRadio2" value="2"
                             {% if patient.template_style == 2 %}
                                 checked
                            {%endif %}
                     >
-                    <label class="form-check-label" for="inlineRadio2">Oscuro</label>
-                </div> -->
-                <div class="form-check form-check-inline">
+                    <label class="form-check-label" for="inlineRadio2">Fondo gris</label>
+                </div>
+                <div class="form-check form-check-inline mb-3">
                     <input class="form-check-input" type="radio" name="template_style" id="inlineRadio3" value="3"
                             {% if patient.template_style == 3 %}
                                 checked
                            {%endif %}
                     >
-                    <label class="form-check-label" for="inlineRadio3">Cálido</label>
+                    <label class="form-check-label" for="inlineRadio3">Fondo amarillo</label>
                 </div>
-                <div class="form-check form-check-inline">
+                <div class="form-check form-check-inline mb-3">
                     <input class="form-check-input" type="radio" name="template_style" id="inlineRadio4" value="4"
                             {% if patient.template_style == 4 %}
                                 checked
                            {%endif %}
                     >
-                    <label class="form-check-label" for="inlineRadio4">Frío</label>
+                    <label class="form-check-label" for="inlineRadio4">Fondo azul</label>
+                </div>
+                <div class="form-check form-check-inline mb-3">
+                    <input class="form-check-input" type="radio" name="template_style" id="inlineRadio5" value="5"
+                            {% if patient.template_style == 5 %}
+                                checked
+                           {%endif %}
+                    >
+                    <label class="form-check-label" for="inlineRadio4">Fondo verde</label>
                 </div>
             </div>
 

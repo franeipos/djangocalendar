@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 
 from .models import Event, PatientCalendar
@@ -28,21 +29,43 @@ class EventForm(ModelForm):
             'type': forms.NumberInput(attrs={'class': 'form-control', 'hidden': 'True'}),
         }
 
-    # def clean(self):
-    #     data = self.cleaned_data
-    #     if data['image'] and data['url_image']:
-    #         self.add_error('image', 'No puede usar una imagen online y una de su ordenador. '
-    #                                 'Por favor, utilice solo una de las opciones.')
-    #     return data
-
     # def clean_date(self):
     #     new_date = self.cleaned_data.get('date')
-    #     new_patient = self.cleaned_data.get('patient')
-    #     event = Event.objects.filter(date=new_date, patient=new_patient)
-    #     if event.exists():
-    #         self.add_error('date', f'Ya existe un evento este día.')
+    #     calendar = self.cleaned_data.get('patient_calendar')
+    #     print(self.cleaned_data)
+    #     event = Event.objects.filter(date=new_date, patient_calendar=calendar)
+    #     if event:
+    #         self.add_error('date', 'Ya existe un evento este día.')
     #
     #     return new_date
+
+    def clean(self):
+        super().clean()
+        data = self.cleaned_data
+
+        # Only one event per date and calendar.
+        existing_events = Event.objects.filter(date=data['date'], patient_calendar=data['patient_calendar'],
+                                               type=data['type']).exclude(pk=self.instance.pk)
+        print(existing_events)
+        if existing_events:
+            self.add_error('date', 'Ya existe un evento este día.')
+
+        # The event must have a title or an image at least.
+        if not data['title'] and not data['image'] and not data['url_image']:
+            # raise ValidationError("Debe proporcionar, al menos, una imagen o un nombre.")
+            self.add_error('title', 'Debe proporcionar, al menos, una imagen o un nombre.')
+            self.add_error('url_image', '')
+            self.add_error('image', '')
+
+        if 'image' or 'url_image' not in data:
+            pass
+        # Only one image input source: local or online.
+        elif data['image'] and data['url_image']:
+            self.add_error('image', 'No puede usar una imagen online y una de su ordenador. '
+                                    'Por favor, utilice solo una de las opciones.')
+            self.add_error('url_image', '')
+
+        return data
 
 
 # Create an Patient Form

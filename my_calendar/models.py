@@ -19,7 +19,7 @@ class PatientCalendar(models.Model):
 
 
 class Event(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, blank=True)
     description = models.TextField(blank=True)
     date = models.DateField()
     image = models.ImageField(blank=True, null=True, upload_to='images/')

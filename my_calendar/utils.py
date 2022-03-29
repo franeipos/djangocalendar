@@ -25,11 +25,13 @@ class Calendar(HTMLCalendar):
         events_per_day = events.filter(date__day=day)
         d = ''
         for event in events_per_day:
-            d += f'<a class="fs-6" href="{reverse("event-detail", args=(event.id,))}"> {event.title}'
+            d += f'<a class="fs-6" href="{reverse("event-detail", args=(event.id,))}">'
+            if event.title:
+                d += f'{event.title} </br>'
             if event.url_image:
-                d += f' </br> <img class="mt-1" src="{event.url_image}">'
+                d += f'<img class="mt-1" src="{event.url_image}">'
             elif event.image:
-                d += f' </br> <img class="mt-1" src="{event.image.url}">'
+                d += f'<img class="mt-1" src="{event.image.url}">'
             d += '</a>'
         if day != 0:
             return f'<td onclick=redirect_add_event("{reverse("add-event", args=(day, self.month, self.year,))}?id_patient={id_patient}&type=1") ' \

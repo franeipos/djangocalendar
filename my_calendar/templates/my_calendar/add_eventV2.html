@@ -17,7 +17,9 @@
 
         {% for field in form %}
             {% for error in field.errors %}
-            <p style="color: red"><i class="bi bi-exclamation-circle"></i> {{ error }}</p>
+                {% if error != "" %}
+                    <p style="color: red"><i class="bi bi-exclamation-circle"></i> {{ error }}</p>
+                {% endif %}
             {% endfor %}
         {% endfor %}
 
@@ -25,8 +27,8 @@
             {% csrf_token %}
             <h5>Datos</h5>
             <div class="mb-3">
-                <input name="title" type="text" placeholder="Nombre*" class="form-control" required maxlength="200" aria-describedby="titleHelp">
-                <div class="form-text" id="titleHelp">*Obligatorio.</div>
+                <input name="title" type="text" placeholder="Nombre" class="form-control" maxlength="200" aria-describedby="titleHelp">
+                <div class="form-text" id="titleHelp"></div>
             </div>
             <div class="mb-3">
                 {% if type == '1' %}

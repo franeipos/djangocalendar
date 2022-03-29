@@ -14,7 +14,7 @@
 .calendar td {
   width: 200px;
   height: 150px;
-  padding: 20px 0px 0px 5px;
+  padding: 5px 5px 5px 5px;
 }
 
 .calendar td a {
@@ -32,7 +32,7 @@
 
 .calendar .calendar-event {
   height: 100%;
-  padding: 0px 5px 0px 20px;
+  padding: 0px 5px 0px 5px;
 }
 
 .calendar td img{
@@ -53,6 +53,12 @@
 
 .image-week-header{
     width: 125px;
+}
+
+#extra_info_table td{
+
+    padding-top: 20px;
+
 }
 
 /* Style for each day of the weekheader */

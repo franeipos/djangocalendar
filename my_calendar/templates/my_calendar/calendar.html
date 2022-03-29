@@ -4,13 +4,13 @@
 
 {% block style %}
     {% if patient_calendar.template_style == 2 %}
-        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_dark.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_gray.css' %}">
     {% elif patient_calendar.template_style == 3 %}
-        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_summer.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_yellow.css' %}">
     {% elif patient_calendar.template_style == 4 %}
-        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_winter.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_blue.css' %}">
     {% elif patient_calendar.template_style == 5 %}
-        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_winter.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_green.css' %}">
     {% elif patient_calendar.template_style == 6 %}
         <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_winter.css' %}">
     {% else %}
@@ -37,19 +37,24 @@
 </div>
 
 <div class="table-responsive-md">
-    <table class="calendar mb-5 text-center">
+    <table class="calendar mb-5 text-center" id="extra_info_table">
         <tr>
             <td class="clickable" onclick="redirect_add_event('{% url 'add-event' 01 month year %}?id_patient={{id_patient}}&type=2')">
                 <span class="date fw-bold">MES</span>
                 <div class="calendar-event">
                     {% if month_event %}
                         {% for event in month_event %}
-                            <a class="fs-6" href="{% url 'event-detail' event.id %}"> {{event.title}} </a> <br>
-                            {% if event.url_image %}
-                                <img src="{{ event.url_image}}" alt="Imagen mes.">
-                            {% elif event.image %}
-                                <img src="{{ event.image.url}}" alt="Imagen mes.">
-                            {% endif %}
+                            <a class="fs-6" href="{% url 'event-detail' event.id %}">
+                                {% if event.title %}
+                                    {{event.title}} <br>
+                                {% endif %}
+
+                                {% if event.url_image %}
+                                    <img src="{{ event.url_image}}" alt="Imagen mes.">
+                                {% elif event.image %}
+                                    <img src="{{ event.image.url}}" alt="Imagen mes.">
+                                {% endif %}
+                            </a>
                         {% endfor %}
                     {% endif %}
                 </div>
@@ -59,12 +64,13 @@
                 <div class="calendar-event">
                     {% if season_event %}
                         {% for event in season_event %}
-                            <a class="fs-6" href="{% url 'event-detail' event.id %}"> {{event.title}} </a> <br>
+                            <a class="fs-6" href="{% url 'event-detail' event.id %}"> {{event.title}} <br>
                             {% if event.url_image %}
                                 <img src="{{ event.url_image}}" alt="Imagen estación.">
                             {% elif event.image %}
                                 <img src="{{ event.image.url}}" alt="Imagen estación.">
                             {% endif %}
+                            </a>
                         {% endfor %}
                     {% endif %}
                 </div>
@@ -74,12 +80,13 @@
                 <div class="calendar-event">
                     {% if weather_event %}
                         {% for event in weather_event %}
-                            <a class="fs-6" href="{% url 'event-detail' event.id %}"> {{event.title}} </a> <br>
+                            <a class="fs-6" href="{% url 'event-detail' event.id %}"> {{event.title}} <br>
                             {% if event.url_image %}
                                 <img src="{{ event.url_image}}" alt="Imagen tiempo.">
                             {% elif event.image %}
                                 <img src="{{ event.image.url}}" alt="Imagen tiempo.">
-                            {% endif %}}
+                            {% endif %}
+                            </a>
                         {% endfor %}
                     {% endif %}
                 </div>
