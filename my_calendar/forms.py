@@ -57,7 +57,8 @@ class EventForm(ModelForm):
             self.add_error('url_image', '')
             self.add_error('image', '')
 
-        if 'image' or 'url_image' not in data:
+        # Verify if the fields are in the cleaned data and weren't removed from previous verifications.
+        if not all(key in data for key in ('image', 'url_image')):
             pass
         # Only one image input source: local or online.
         elif data['image'] and data['url_image']:
