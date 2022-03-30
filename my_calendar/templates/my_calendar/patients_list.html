@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{% url 'update-patient' patient.id %}" class="btn btn-sm btn-outline-secondary">Editar</a>
+                    <a href="{% url 'update-patient' patient.id %}" class="btn btn-sm btn-outline-secondary">Ajustes</a>
                     <a href="" data-bs-toggle="modal" data-bs-target="#deleteModal" data-name = "{{patient.name}}"
                        data-url="{% url 'delete-patient' patient.id %}" data-id = "{{patient.id}}"
                        class="open-delete-patient btn btn-sm btn-outline-danger">Eliminar</a>

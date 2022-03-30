@@ -107,7 +107,7 @@
                    value="{% if event.url_image %} {{event.url_image}} {% endif %}" hidden>
             <input name="patient_calendar" type="number"  class="form-control my-3" value="{{event.patient_calendar.id}}" required hidden>
             <input name="type" type="number" class="form-control my-2" value="{{event.type}}" required hidden>
-            <input type="submit" name="submit" value="Actualizar" class="btn btn-outline-primary my-3">
+            <input type="submit" name="submit" value="Aceptar" class="btn btn-outline-primary my-3">
             <a class="btn btn-outline-danger" href="{% url 'event-detail' event.id %}">Cancelar</a>
         </form>
     </div>

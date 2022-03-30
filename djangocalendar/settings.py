@@ -14,6 +14,8 @@ from pathlib import Path
 from django.contrib.messages import constants as message_constants
 import os
 
+from django.urls import reverse
+
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -149,3 +151,6 @@ MESSAGE_TAGS = {message_constants.DEBUG: 'debug',
                 message_constants.SUCCESS: 'success',
                 message_constants.WARNING: 'warning',
                 message_constants.ERROR: 'danger',}
+
+# Login URL for login_required redirection.
+LOGIN_URL = 'login'

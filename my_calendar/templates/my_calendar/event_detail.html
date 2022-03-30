@@ -24,7 +24,7 @@
             </div>
             <div class="card-footer">
                 <a href="{% url 'calendar' event.patient_calendar.id event.date.month event.date.year %}" class="btn btn-outline-success btn-sm">Ver en calendario</a>
-                <a href="{% url 'update-event' event.id %}" class="btn btn-sm btn-outline-secondary">Actualizar</a>
+                <a href="{% url 'update-event' event.id %}" class="btn btn-sm btn-outline-secondary">Modificar</a>
                 <a class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</a>
             </div>
         </div>
