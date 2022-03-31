@@ -36,7 +36,7 @@
                 {% else %}
                     <input name="date" type="month" placeholder="Seleccione una fecha*" class="form-control" value="{{year}}-{{month}}" required aria-describedby="dateHelp">
                 {% endif %}
-                <div class="form-text" id="dateHelp">*Obligatorio.</div>
+<!--                <div class="form-text" id="dateHelp">*Obligatorio.</div>-->
             </div>
             <div class="mb-3">
                 <input name="description" type="text" placeholder="Descripción" class="form-control my-3">
@@ -88,7 +88,9 @@
             <input name="url_image" id="url_image" type="url" class="form-control" hidden>
             <input name="patient_calendar" type="number"  class="form-control my-3" value="{{id_patient}}" required hidden>
             <input name="type" type="number" class="form-control my-2" value="{{type}}" required hidden>
+            <input type="hidden" value="{{previous_page}}" name="back">
             <input type="submit" name="submit" value="Crear" class="btn btn-outline-primary my-3">
+            <a class="btn btn-outline-danger my-3" href="{% if previous_page is not None %} {{previous_page}} {% else %} {% url 'patients-list' %} {% endif %}">Cancelar</a>
         </form>
     </div>
 </div>

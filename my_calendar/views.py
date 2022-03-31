@@ -92,7 +92,7 @@ def add_event(request, day=datetime.now().day, month=datetime.now().month, year=
     context = {
         'day': str(day).zfill(2),
         'month': str(month).zfill(2),
-        'year': year
+        'year': year,
     }
 
     event_date = f'{year}-{str(month).zfill(2)}-{str(day).zfill(2)}'
@@ -132,8 +132,11 @@ def add_event(request, day=datetime.now().day, month=datetime.now().month, year=
             new_event = form.save()
             messages.success(request, 'EXITO! El evento se ha creado correctamente.')
             return redirect('event-detail', event_id=new_event.id)
+
+        context['previous_page'] = request.POST.get('back')  # obtain previous web page.
     else:
         form = EventForm(initial=initial_values)
+        context['previous_page'] = request.META.get('HTTP_REFERER')  # obtain previous web page.
 
     context['form'] = form
 
