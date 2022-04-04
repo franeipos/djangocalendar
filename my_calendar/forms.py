@@ -49,7 +49,7 @@ class EventForm(ModelForm):
         print(existing_events)
         if existing_events:
             self.add_error('date', 'Ya existe un evento este día. '
-                                   'Por favor, seleccione otra fecha o elimine el evento ya existente.')
+                                   'Por favor, seleccione otra fecha.')
 
         # The event must have a title or an image at least.
         if not data['title'] and not data['image'] and not data['url_image']:

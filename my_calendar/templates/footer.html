@@ -1,0 +1,16 @@
+<footer class="footer mt-auto py-3 bg-dark">
+  <div class="container">
+      <div class="row">
+          <div class="col-4">
+              <span class="text-white"> PictoCal, una herramienta de acceso libre. </span>
+          </div>
+          <div class="col-4 text-center">
+              <span class="text-white">GTEC - {% now 'Y' %} &copy; </span>
+          </div>
+          <div class="col-4 text-end">
+            <span><a href="{% url 'user-privacy' %}">Política privacidad</a></span>
+            <span class="mx-2"><a href="{% url 'show-information' %}"> Información </a></span>
+          </div>
+      </div>
+  </div>
+</footer>

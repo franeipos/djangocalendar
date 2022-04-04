@@ -1,7 +1,7 @@
 {% load static %}
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="h-100">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -21,8 +21,10 @@
     <title>PictoCal</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
   </head>
-  <body id="body" class="bg-light">
+  <body id="body" class="d-flex flex-column h-100 bg-light">
+
   {% include 'navbar.html' %}
+
   <div class="container mt-4">
       <div class="row justify-content-center">
           <div class="col-md-6">
@@ -51,5 +53,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <script src="{% static '/my_calendar/scripts.js' %}"></script>
+
+<!--  {% include 'footer.html' %}-->
   </body>
 </html>

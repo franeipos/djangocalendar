@@ -42,6 +42,12 @@
             <div class="mb-3">
                 <input type="text" name="institution" maxlength="30" id="id_institution" placeholder="Institucion" aria-describedby="institutionHelp" class="form-control">
             </div>
+            <div class="mb-3">
+                <input type="checkbox" class="form-check-input" id="privacy" name="privacy" required>
+                <label class="form-check-label" for="privacy">
+                    <a href="{% url 'user-privacy' %}"> Doy mi consentimiento explícito para que se registren mis datos </a>
+                </label>
+            </div>
             <button type="submit" class="btn btn-outline-primary">Registrarse</button>
         </form>
     </div>

@@ -184,3 +184,7 @@ def send_activation_mail(request, user_id):
     else:
         messages.success(request, 'EXITO: Se ha enviado un correo para que active su cuenta.')
     return redirect('login')
+
+
+def user_data_privacy(request):
+    return render(request, 'authentication/data_privacy.html', {})

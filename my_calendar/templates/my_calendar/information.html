@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="shadow-none p-3 mb-5 bg-white rounded col-md-8">
+        <h1 class="text-center mb-4"> Información </h1>
+        <div class="container">
+            <p>
+                PictoCal es una herramienta de acceso libre para la elaboración de calendarios visuales que emplean imágenes y pictogramas como medio de comunicación.
+                <br>
+                <br>
+                El siguiente enlace permite descargar una ficha del funcionamiento de PictoCal: <a href="{% get_media_prefix %}PictoCal.pdf" target="_blank">Ver ficha</a>.
+                <br>
+                <br>
+
+                <a href="{% url 'user-privacy' %}">Aquí</a> puedes consultar nuestras políticas de privacidad.
+                <br>
+                <br>
+
+                <strong>Desarrollador: </strong>
+                <br>
+                Francisco Laport López
+                <br>
+                <br>
+
+                <strong>Directoras: </strong>
+                <br>
+                Paula M. Castro Castro
+                <br>
+                Adriana Dapena Janeiro
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

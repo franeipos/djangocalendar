@@ -343,3 +343,7 @@ def calendar_to_pdf(request, id_patient, month=datetime.now().month, year=dateti
     # return render(request, 'my_calendar/pdf_calendar.html', context)
 
     return response
+
+
+def show_information(request):
+    return render(request, 'my_calendar/information.html', {})

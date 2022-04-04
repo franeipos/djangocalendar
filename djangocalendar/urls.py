@@ -35,6 +35,7 @@ from my_calendar.views import (
     update_patient,
     delete_patient,
     calendar_to_pdf,
+    show_information,
 )
 
 from accounts.views import (
@@ -44,7 +45,8 @@ from accounts.views import (
     user_detail,
     update_user,
     activate_account,
-    send_activation_mail
+    send_activation_mail,
+    user_data_privacy
 )
 
 urlpatterns = [
@@ -66,6 +68,7 @@ urlpatterns = [
                 path('calendar/delete_patient/<int:id_patient>/', delete_patient, name="delete-patient"),
                 path('calendar/to_pdf/<int:id_patient>/<int:month>/<int:year>/', calendar_to_pdf,
                    name="calendar-to-pdf"),
+                path('calendar/information/', show_information, name="show-information"),
 
                 # Account URLs
                 path('/accounts/', include('django.contrib.auth.urls')),
@@ -74,6 +77,7 @@ urlpatterns = [
                 path('accounts/register_user/', register_user, name="register_user"),
                 path('accounts/user_detail/<int:user_id>/', user_detail, name="user-detail"),
                 path('accounts/update_user/<int:user_id>/', update_user, name="update-user"),
+                path('accounts/user_privacy/', user_data_privacy, name="user-privacy"),
 
                 # Password reset URLs
                 path('accounts/password_change/done/', auth_views.PasswordChangeDoneView.as_view(
