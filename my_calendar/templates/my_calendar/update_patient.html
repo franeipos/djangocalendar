@@ -17,7 +17,7 @@
             <input type="number" name="therapist" class="form-control mb-3" placeholder="Terapeuta" id="id_therapist" hidden required value="{{user.id}}">
 
             <div class="my-4">
-                <h6 class="mt-2 mb-3"> Estilo del calendario: </h6>
+                <h5 class="mt-2 mb-3"> Estilo del calendario: </h5>
                 <div class="form-check form-check-inline mb-3">
                     <input class="form-check-input" type="radio" name="template_style" id="inlineRadio1" value="1"
                            {% if patient.template_style == 1 %}
@@ -58,6 +58,53 @@
                     >
                     <label class="form-check-label" for="inlineRadio4">Fondo verde</label>
                 </div>
+            </div>
+
+            <div class="mb-3">
+                <h5 class="my-2"> Estilo del texto: </h5>
+                <div class="mb-3">
+                    <label for="font-color" class="form-label">Color base: </label>
+                    <input class="form-control form-control-color" type="color" value="{{patient.font_color}}" id="font-color" name="font_color" list="presetColors" aria-describedby="colorHelp">
+                    <datalist id="presetColors">
+                        <option>#000000</option>
+                        <option>#ff0000</option>
+                        <option>#00ff00</option>
+                        <option>#0000ff</option>
+                    </datalist>
+                    <div id="colorHelp" class="form-text">Color de la fecha y titulos del calendario.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="font-color" class="form-label">Color eventos: </label>
+                    <input class="form-control form-control-color" type="color" value="{{patient.link_color}}" id="link-color" name="link_color" list="presetColors" aria-describedby="linkHelp">
+                    <div id="linkHelp" class="form-text">Color del nombre de los eventos.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="font-size" class="form-label">Tamaño del texto:</label>
+                    <select class="form-select" aria-label="Tamaño del texto" id="font-size" name="font_size">
+                        <option value="12" {% if patient.font_size == 12 %} selected {%endif%}>12</option>
+                        <option value="14" {% if patient.font_size == 14 %} selected {%endif%}>14</option>
+                        <option value="16" {% if patient.font_size == 16 %} selected {%endif%}>16</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="font-style" class="form-label">Tipo de letra:</label>
+                    <select class="form-select" aria-label="Tipo de letra" id="font-style" name="font_style">
+                        <option value="Arial,sans-serif" {% if patient.font_style == "Arial,sans-serif"%} selected {%endif%}>
+                            Sin serifa
+                        </option>
+                        <option value="Times,serif" {% if patient.font_style == "Times,serif"%} selected {%endif%} >Con serifa</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="text-position" class="form-label">Posición del nombre del evento:</label>
+                    <select class="form-select" aria-label="Posición del texto" id="text-position" name="text_position_event">
+                        <option value="1" {% if patient.text_position_event == 1 %} selected {%endif%}>Encima del pictograma</option>
+                        <option value="2" {% if patient.text_position_event == 2 %} selected {%endif%}>Debajo del pictograma</option>
+                    </select>
+                </div>
+
+
+
             </div>
 
             <input type="submit" name="submit" value="Aceptar" class="btn btn-outline-primary">

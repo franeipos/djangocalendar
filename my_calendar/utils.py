@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.conf import settings
 
 from calendar import HTMLCalendar
-from .models import Event
+from .models import Event, PatientCalendar
 
 
 class Calendar(HTMLCalendar):
@@ -23,15 +23,21 @@ class Calendar(HTMLCalendar):
     # filter events by day
     def formatday(self, day, events, id_patient):
         events_per_day = events.filter(date__day=day)
+        patient_calendar = PatientCalendar.objects.get(id=id_patient)
+        text_position_event = patient_calendar.text_position_event
         d = ''
         for event in events_per_day:
             d += f'<a class="fs-6" href="{reverse("event-detail", args=(event.id,))}">'
-            if event.title:
+            if event.title and text_position_event == 1:
                 d += f'{event.title} </br>'
+
             if event.url_image:
-                d += f'<img class="mt-1" src="{event.url_image}">'
+                d += f'<img class="my-1" src="{event.url_image}">'
             elif event.image:
-                d += f'<img class="mt-1" src="{event.image.url}">'
+                d += f'<img class="my-1" src="{event.image.url}">'
+
+            if event.title and text_position_event == 2:
+                d += f'</br> {event.title}'
             d += '</a>'
         if day != 0:
             return f'<td onclick=redirect_add_event("{reverse("add-event", args=(day, self.month, self.year,))}?id_patient={id_patient}&type=1") ' \
@@ -51,6 +57,7 @@ class Calendar(HTMLCalendar):
         Return a weekday name as a table header.
         """
         day_names = ["LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO", "DOMINGO"]
+        day_event_types = [10, 11, 12, 13, 14, 15, 16, 17]
         day_image = f'day_{day}'
         print(settings.MEDIA_ROOT)
         return f'<th class="week-header {self.cssclasses_weekday_head[day]}">' \
