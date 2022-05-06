@@ -58,6 +58,7 @@ class Calendar(HTMLCalendar):
         """
         day_names = ["LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO", "DOMINGO"]
         day_event_types = [10, 11, 12, 13, 14, 15, 16, 17]
+        # event = Event.objects.filter(patient_calendar=id_patient, type=day_event_types[day])
         day_image = f'day_{day}'
         print(settings.MEDIA_ROOT)
         return f'<th class="week-header {self.cssclasses_weekday_head[day]}">' \
