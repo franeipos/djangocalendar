@@ -58,14 +58,18 @@
                     {% if month_event %}
                         {% for event in month_event %}
                             <a class="fs-6" href="{% url 'event-detail' event.id %}">
-                                {% if event.title %}
-                                    {{event.title}} <br>
+                                {% if event.title  and patient_calendar.text_position_event == 1 %}
+                                    <br> {{event.title}}
                                 {% endif %}
 
                                 {% if event.url_image %}
                                     <img src="{{ event.url_image}}" alt="Imagen mes.">
                                 {% elif event.image %}
                                     <img src="{{ event.image.url}}" alt="Imagen mes.">
+                                {% endif %}
+
+                                {% if event.title  and patient_calendar.text_position_event == 2%}
+                                    <br> {{event.title}}
                                 {% endif %}
                             </a>
                         {% endfor %}
@@ -77,12 +81,20 @@
                 <div class="calendar-event">
                     {% if season_event %}
                         {% for event in season_event %}
-                            <a class="fs-6" href="{% url 'event-detail' event.id %}"> {{event.title}} <br>
-                            {% if event.url_image %}
-                                <img src="{{ event.url_image}}" alt="Imagen estación.">
-                            {% elif event.image %}
-                                <img src="{{ event.image.url}}" alt="Imagen estación.">
-                            {% endif %}
+                            <a class="fs-6" href="{% url 'event-detail' event.id %}">
+                                {% if event.title  and patient_calendar.text_position_event == 1 %}
+                                    <br> {{event.title}}
+                                {% endif %}
+
+                                {% if event.url_image %}
+                                    <img src="{{ event.url_image}}" alt="Imagen estación.">
+                                {% elif event.image %}
+                                    <img src="{{ event.image.url}}" alt="Imagen estación.">
+                                {% endif %}
+
+                                {% if event.title  and patient_calendar.text_position_event == 2%}
+                                    <br> {{event.title}}
+                                {% endif %}
                             </a>
                         {% endfor %}
                     {% endif %}
