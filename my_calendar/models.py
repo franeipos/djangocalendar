@@ -6,9 +6,18 @@ from datetime import datetime
 
 # Create your models here.
 class PatientCalendar(models.Model):
+
     name = models.CharField(max_length=50, blank=False, null=False, default="Nombre Calendario")
-    template_style = models.PositiveSmallIntegerField(blank=False, null=False, default=1)  # 1:base, 2:dark, 3:
-    # summer, 4:winter, 5:autumn, 6:spring
+    template_style = models.PositiveSmallIntegerField(blank=False, null=False, default=1)  # 1: white, 2: gray,
+    # 3: yellow, 4: blue, 5: green
+
+    # Text style
+    font_style = models.CharField(max_length=20, blank=False, null=False, default='Arial,sans-serif')
+    font_color = models.CharField(max_length=7, blank=False, null=False, default='#000000')
+    link_color = models.CharField(max_length=7, blank=False, null=False, default='#000000')
+    font_size = models.PositiveSmallIntegerField(blank=False, null=False, default=12)
+    text_position_event = models.PositiveSmallIntegerField(blank=False, null=False, default=1)  # 1: above, 2: below
+
     therapist = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:

@@ -74,7 +74,8 @@ class EventForm(ModelForm):
 class PatientForm(ModelForm):
     class Meta:
         model = PatientCalendar
-        fields = ('name', 'template_style', 'therapist')
+        fields = ('name', 'template_style', 'therapist', 'font_color', 'link_color', 'font_size', 'font_style',
+                  'text_position_event')
         labels = {
             'name': '',
             'therapist': '',
