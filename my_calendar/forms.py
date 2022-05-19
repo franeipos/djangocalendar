@@ -21,7 +21,7 @@ class EventForm(ModelForm):
         }
 
         widgets = {
-            'header': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título'}),
+            'header': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Encabezado de la caja'}),
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
             'description': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Descripcion'}),
             'date': forms.DateInput(
@@ -53,12 +53,14 @@ class EventForm(ModelForm):
             self.add_error('date', 'Ya existe un evento este día. '
                                    'Por favor, seleccione otra fecha.')
 
-        # The event must have a title or an image at least.
-        if not data['title'] and not data['image'] and not data['url_image']:
-            # raise ValidationError("Debe proporcionar, al menos, una imagen o un nombre.")
-            self.add_error('title', 'Debe proporcionar, al menos, una imagen o un nombre.')
+
+        if not data['title'] and not data['image'] and not data['url_image'] and not data['header']:
+             # raise ValidationError("Debe proporcionar, al menos, una imagen o un nombre.")
+            self.add_error('title', 'Debe proporcionar, al menos, una imagen, un nombre o un encabezado.')
+            self.add_error('header', '')
             self.add_error('url_image', '')
-            self.add_error('image', '')
+            self.add_error('image', '')   
+
 
         # Verify if the fields are in the cleaned data and weren't removed from previous verifications.
         if not all(key in data for key in ('image', 'url_image')):

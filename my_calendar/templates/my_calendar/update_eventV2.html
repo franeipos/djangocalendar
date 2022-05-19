@@ -12,7 +12,7 @@
         {% elif event.type == 4 %}
             Actualizar Tiempo
         {% elif event.type == 5 %}
-            Actualizar Evento
+            Actualizar Caja
         {% endif %}
         </h1>
 
@@ -34,8 +34,8 @@
             {% csrf_token %}
             <h5>Datos </h5>
 
-            {% if event.header %}
-                <input name="header" type="text" placeholder="Título" class="form-control" maxlength="200" aria-describedby="headerHelp" value="{{ event.header }}">
+            {% if event.type == 5 %}
+                <input name="header" type="text" placeholder="Encabezado de la caja" class="form-control" maxlength="200" aria-describedby="headerHelp" value="{{ event.header }}">
             {% endif %}
 
             <input name="title" type="text" placeholder="Nombre" class="form-control my-3" maxlength="200" value="{{ event.title }}">

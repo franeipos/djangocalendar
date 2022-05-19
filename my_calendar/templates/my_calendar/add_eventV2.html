@@ -13,7 +13,7 @@
         {% elif type == '4' %}
             Nuevo Tiempo
         {% elif type == '5' %}
-            Nuevo Evento
+            Nueva Caja
         {% endif %}
         </h1>
 
@@ -30,7 +30,7 @@
             <h5>Datos</h5>
             {% if type == '5' %}
             <div class="mb-3">
-                <input name="header" type="text" placeholder="Título" class="form-control" maxlength="200" aria-describedby="headerHelp">
+                <input name="header" type="text" placeholder="Encabezado de la caja" class="form-control" maxlength="200" aria-describedby="headerHelp">
                 <div class="form-text" id="headerHelp"></div>
             </div>
             {% endif %}
