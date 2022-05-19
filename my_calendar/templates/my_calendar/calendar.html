@@ -52,54 +52,88 @@
 <div class="table-responsive-md">
     <table class="calendar mb-5 text-center" id="extra_info_table">
         <tr>
-            <td class="clickable" onclick="redirect_add_event('{% url 'add-event' 01 month year %}?id_patient={{id_patient}}&type=2')">
-                <span class="date fw-bold">MES</span>
-                <div class="calendar-event">
-                    {% if month_event %}
-                        {% for event in month_event %}
-                            <a class="fs-6" href="{% url 'event-detail' event.id %}">
-                                {% if event.title  and patient_calendar.text_position_event == 1 %}
-                                    <br> {{event.title}}
-                                {% endif %}
+        {% if patient_calendar.month_boxes == True or patient_calendar.season_box == True or patient_calendar.extra_box == True %}
+            {% if patient_calendar.month_box == True %}
+                <td class="clickable" onclick="redirect_add_event('{% url 'add-event' 01 month year %}?id_patient={{id_patient}}&type=2')">
+                    <span class="date fw-bold">MES</span>
+                    <div class="calendar-event">
+                        {% if month_event %}
+                            {% for event in month_event %}
+                                <a class="fs-6" href="{% url 'event-detail' event.id %}">
+                                    {% if event.title  and patient_calendar.text_position_event == 1 %}
+                                        <br> {{event.title}}
+                                    {% endif %}
 
-                                {% if event.url_image %}
-                                    <img src="{{ event.url_image}}" alt="Imagen mes.">
-                                {% elif event.image %}
-                                    <img src="{{ event.image.url}}" alt="Imagen mes.">
-                                {% endif %}
+                                    {% if event.url_image %}
+                                        <img src="{{ event.url_image}}" alt="Imagen mes.">
+                                    {% elif event.image %}
+                                        <img src="{{ event.image.url}}" alt="Imagen mes.">
+                                    {% endif %}
 
-                                {% if event.title  and patient_calendar.text_position_event == 2%}
-                                    <br> {{event.title}}
-                                {% endif %}
-                            </a>
+                                    {% if event.title  and patient_calendar.text_position_event == 2%}
+                                        <br> {{event.title}}
+                                    {% endif %}
+                                </a>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </td>
+            {% endif %}
+
+            {% if patient_calendar.season_box == True %}
+                <td class="clickable" onclick="redirect_add_event('{% url 'add-event' 01 month year %}?id_patient={{id_patient}}&type=3')">
+                    <span class="date fw-bold">ESTACIÓN</span>
+                    <div class="calendar-event">
+                        {% if season_event %}
+                            {% for event in season_event %}
+                                <a class="fs-6" href="{% url 'event-detail' event.id %}">
+                                    {% if event.title  and patient_calendar.text_position_event == 1 %}
+                                        <br> {{event.title}}
+                                    {% endif %}
+
+                                    {% if event.url_image %}
+                                        <img src="{{ event.url_image}}" alt="Imagen estación.">
+                                    {% elif event.image %}
+                                        <img src="{{ event.image.url}}" alt="Imagen estación.">
+                                    {% endif %}
+
+                                    {% if event.title  and patient_calendar.text_position_event == 2%}
+                                        <br> {{event.title}}
+                                    {% endif %}
+                                </a>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </td>
+            {% endif %}
+
+            {% if patient_calendar.extra_box == True %}
+                <td class="clickable" onclick="redirect_add_event('{% url 'add-event' 01 month year %}?id_patient={{id_patient}}&type=5')">
+                    {% if extra_event %}
+                        {% for event in extra_event %}
+                            <span class="date fw-bold">{{event.header}}</span>
+                            <div class="calendar-event">
+                                <a class="fs-6" href="{% url 'event-detail' event.id %}">
+                                    {% if event.title  and patient_calendar.text_position_event == 1 %}
+                                       <br> {{event.title}}
+                                    {% endif %}
+                                    {% if event.url_image %}
+                                       <img src="{{ event.url_image}}" alt="Imagen.">
+                                    {% elif event.image %}
+                                       <img src="{{ event.image.url}}" alt="Imagen.">
+                                    {% endif %}
+                                    {% if event.title  and patient_calendar.text_position_event == 2%}
+                                       <br> {{event.title}}
+                                    {% endif %}
+                                </a>
+                            </div>
                         {% endfor %}
                     {% endif %}
-                </div>
-            </td>
-            <td class="clickable" onclick="redirect_add_event('{% url 'add-event' 01 month year %}?id_patient={{id_patient}}&type=3')">
-                <span class="date fw-bold">ESTACIÓN</span>
-                <div class="calendar-event">
-                    {% if season_event %}
-                        {% for event in season_event %}
-                            <a class="fs-6" href="{% url 'event-detail' event.id %}">
-                                {% if event.title  and patient_calendar.text_position_event == 1 %}
-                                    <br> {{event.title}}
-                                {% endif %}
-
-                                {% if event.url_image %}
-                                    <img src="{{ event.url_image}}" alt="Imagen estación.">
-                                {% elif event.image %}
-                                    <img src="{{ event.image.url}}" alt="Imagen estación.">
-                                {% endif %}
-
-                                {% if event.title  and patient_calendar.text_position_event == 2%}
-                                    <br> {{event.title}}
-                                {% endif %}
-                            </a>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </td>
+                </td>
+            {% endif %}
+        {% endif %}
+            
+            
 <!--            <td class="clickable" onclick="redirect_add_event('{% url 'add-event' 01 month year %}?id_patient={{id_patient}}&type=4')">-->
 <!--                <span class="date fw-bold">TIEMPO</span>-->
 <!--                <div class="calendar-event">-->

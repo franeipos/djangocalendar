@@ -12,6 +12,8 @@
             Nueva Estación
         {% elif type == '4' %}
             Nuevo Tiempo
+        {% elif type == '5' %}
+            Nuevo Evento
         {% endif %}
         </h1>
 
@@ -26,6 +28,12 @@
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <h5>Datos</h5>
+            {% if type == '5' %}
+            <div class="mb-3">
+                <input name="header" type="text" placeholder="Título" class="form-control" maxlength="200" aria-describedby="headerHelp">
+                <div class="form-text" id="headerHelp"></div>
+            </div>
+            {% endif %}
             <div class="mb-3">
                 <input name="title" type="text" placeholder="Nombre" class="form-control" maxlength="200" aria-describedby="titleHelp">
                 <div class="form-text" id="titleHelp"></div>

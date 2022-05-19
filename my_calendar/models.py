@@ -18,6 +18,10 @@ class PatientCalendar(models.Model):
     font_size = models.PositiveSmallIntegerField(blank=False, null=False, default=12)
     text_position_event = models.PositiveSmallIntegerField(blank=False, null=False, default=1)  # 1: above, 2: below
 
+    month_box = models.BooleanField(default = True)
+    season_box = models.BooleanField(default = True)
+    extra_box = models.BooleanField(default = False)
+
     therapist = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
@@ -28,13 +32,14 @@ class PatientCalendar(models.Model):
 
 
 class Event(models.Model):
+    header = models.CharField(max_length=200, blank=True)
     title = models.CharField(max_length=200, blank=True)
     description = models.TextField(blank=True)
     date = models.DateField()
     image = models.ImageField(blank=True, null=True, upload_to='images/')
     url_image = models.URLField(blank=True, null=True)
     type = models.PositiveSmallIntegerField(blank=False, null=False, default=1)  # 1:day event, 2:month, 3:season,
-    # 4:weather
+    # 4:weather, 5:extra
     patient_calendar = models.ForeignKey(PatientCalendar, blank=False, default=1, on_delete=models.CASCADE)
 
     def __str__(self):

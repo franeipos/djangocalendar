@@ -9,8 +9,9 @@ from .models import Event, PatientCalendar
 class EventForm(ModelForm):
     class Meta:
         model = Event
-        fields = ('title', 'date', 'patient_calendar', 'description', 'image', 'type', 'url_image')
+        fields = ('header','title', 'date', 'patient_calendar', 'description', 'image', 'type', 'url_image')
         labels = {
+            'header':'',
             'title': '',
             'description': '',
             'date': '',
@@ -20,6 +21,7 @@ class EventForm(ModelForm):
         }
 
         widgets = {
+            'header': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título'}),
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
             'description': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Descripcion'}),
             'date': forms.DateInput(
@@ -75,7 +77,7 @@ class PatientForm(ModelForm):
     class Meta:
         model = PatientCalendar
         fields = ('name', 'template_style', 'therapist', 'font_color', 'link_color', 'font_size', 'font_style',
-                  'text_position_event')
+                  'text_position_event', 'month_box', 'season_box', 'extra_box')
         labels = {
             'name': '',
             'therapist': '',
@@ -85,8 +87,12 @@ class PatientForm(ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
             'template_style': forms.NumberInput(attrs={'class': 'form-control'}),
+            'month_box': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'season_box': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'extra_box': forms.CheckboxInput(attrs={'class': 'form-control'}),
             'therapist': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Terapeuta', 'hidden': 'True'}),
         }
+
 
     def clean(self):
         data = self.cleaned_data
