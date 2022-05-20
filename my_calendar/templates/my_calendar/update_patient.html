@@ -129,32 +129,38 @@
                     <div id="flush-collapseThird" class="accordion-collapse collapse" aria-labelledby="flush-headingThird" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name = "month_box" id="flexCheckChecked"
+                                <input class="form-check-input" type="checkbox" name = "month_box" id="month_box"
                                 {% if patient.month_box %}
                                 checked
                                 {% endif %}>
-                                <label class="form-check-label" for="flexCheckChecked">
+                                <label class="form-check-label" for="month_box">
                                   Mes
                                 </label>
                               </div>
                               <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name = "season_box" id="flexCheckChecked"
+                                <input class="form-check-input" type="checkbox" name = "season_box" id="season_box"
                                 {% if patient.season_box %}
                                 checked
                                 {% endif %}>
-                                <label class="form-check-label" for="flexCheckChecked">
+                                <label class="form-check-label" for="season_box">
                                   Estación
                                 </label>
                               </div>
                               <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name = "extra_box" id="flexCheckDefault"
+                                <input class="form-check-input" type="checkbox" name = "extra_box" id="extra_box"
                                 {% if patient.extra_box %}
                                 checked
                                 {% endif %}>
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <label class="form-check-label" for="extra_box">
                                   Extra
                                 </label>
+                                {% if patient.extra_box %}
+                                    <input type="text" placeholder="Nombre de la caja extra" name="header_extra_box" id="name_extra_box" class="form-control my-3 d-block">
+                                {% else %}
+                                    <input type="text" placeholder="Nombre de la caja extra" name="header_extra_box" id="name_extra_box" class="form-control my-3 d-none">
+                                {% endif %}
                               </div>
+                            <div id="colorHelp" class="form-text">Número de cajas que tendrá la plantilla.</div>
                         </div>
                     </div>
                 </div>

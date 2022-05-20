@@ -4,32 +4,6 @@
 <div class="row justify-content-center">
     <div class="col-md-4 rounded bg-white p-3">
         <div class="card">
-          {% if event.type == 5 %}
-            <div class="card-header">
-              <h2> {{event.header}} </h2>
-            </div>
-            <div class="card-body">
-              <h2> {{event.title}} </h2>
-              {% if event.type == 1 %}
-                  <h4> {{ event.date|date:"d \d\e F \d\e Y" }} </h4>
-              {% else %}
-                  <h4> {{ event.date|date:"F \d\e Y" }} </h4>
-              {% endif %}
-
-              <p> {{ event.description }} </p>
-              {% if event.url_image %}
-                  <img src="{{event.url_image }}" width="200px" height="200px">
-              {% elif event.image %}
-                  <img src="{{event.image.url }}" width="200px" height="200px">
-              {% endif %}
-
-            </div>
-            <div class="card-footer">
-              <a href="{% url 'calendar' event.patient_calendar.id event.date.month event.date.year %}" class="btn btn-outline-success btn-sm">Ver en calendario</a>
-              <a href="{% url 'update-event' event.id %}" class="btn btn-sm btn-outline-secondary">Modificar</a>
-              <a class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</a>
-            </div>
-          {% else %}
             <div class="card-header">
                 <h2> {{event.title}} </h2>
             </div>
@@ -54,7 +28,6 @@
                 <a class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</a>
             </div>
         </div>
-        {% endif %}
     </div>
 </div>
 

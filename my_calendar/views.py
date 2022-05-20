@@ -1,9 +1,10 @@
 from datetime import datetime
+from email import header
 import locale
 import os
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -53,7 +54,6 @@ def calendar_view(request, id_patient, month=datetime.now().month, year=datetime
     season_event = Event.objects.filter(patient_calendar=id_patient, date__month=month, date__year=year, type=3)
     weather_event = Event.objects.filter(patient_calendar=id_patient, date__month=month, date__year=year, type=4)
     extra_event = Event.objects.filter(patient_calendar=id_patient, date__month=month, date__year=year, type=5)
-
 
     context = {
         "calendar": mark_safe(html_cal),

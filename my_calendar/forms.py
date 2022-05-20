@@ -9,9 +9,8 @@ from .models import Event, PatientCalendar
 class EventForm(ModelForm):
     class Meta:
         model = Event
-        fields = ('header','title', 'date', 'patient_calendar', 'description', 'image', 'type', 'url_image')
+        fields = ('title', 'date', 'patient_calendar', 'description', 'image', 'type', 'url_image')
         labels = {
-            'header':'',
             'title': '',
             'description': '',
             'date': '',
@@ -21,9 +20,8 @@ class EventForm(ModelForm):
         }
 
         widgets = {
-            'header': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Encabezado de la caja'}),
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
-            'description': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Descripcion'}),
+            'description': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Descripción'}),
             'date': forms.DateInput(
                 attrs={'class': 'form-control', 'placeholder': 'Selecciona una fecha', 'type': 'date'},
                 format='%Y-%m-%d'),
@@ -54,10 +52,9 @@ class EventForm(ModelForm):
                                    'Por favor, seleccione otra fecha.')
 
 
-        if not data['title'] and not data['image'] and not data['url_image'] and not data['header']:
+        if not data['title'] and not data['image'] and not data['url_image']:
              # raise ValidationError("Debe proporcionar, al menos, una imagen o un nombre.")
-            self.add_error('title', 'Debe proporcionar, al menos, una imagen, un nombre o un encabezado.')
-            self.add_error('header', '')
+            self.add_error('title', 'Debe proporcionar, al menos, una imagen o un nombre.')
             self.add_error('url_image', '')
             self.add_error('image', '')   
 
@@ -79,7 +76,7 @@ class PatientForm(ModelForm):
     class Meta:
         model = PatientCalendar
         fields = ('name', 'template_style', 'therapist', 'font_color', 'link_color', 'font_size', 'font_style',
-                  'text_position_event', 'month_box', 'season_box', 'extra_box')
+                  'text_position_event', 'month_box', 'season_box', 'extra_box', 'header_extra_box')
         labels = {
             'name': '',
             'therapist': '',

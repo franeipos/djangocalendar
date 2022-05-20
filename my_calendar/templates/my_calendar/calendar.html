@@ -70,8 +70,8 @@
                                         <img src="{{ event.image.url}}" alt="Imagen mes.">
                                     {% endif %}
 
-                                    {% if event.title  and patient_calendar.text_position_event == 2%}
-                                        {{event.title}}<br> 
+                                    {% if event.title and patient_calendar.text_position_event == 2%}
+                                    <br> {{event.title}} 
                                     {% endif %}
                                 </a>
                             {% endfor %}
@@ -97,8 +97,8 @@
                                         <img src="{{ event.image.url}}" alt="Imagen estación.">
                                     {% endif %}
 
-                                    {% if event.title  and patient_calendar.text_position_event == 2%}
-                                        {{event.title}}<br> 
+                                    {% if event.title and patient_calendar.text_position_event == 2%}
+                                    <br>{{event.title}}
                                     {% endif %}
                                 </a>
                             {% endfor %}
@@ -109,10 +109,15 @@
 
             {% if patient_calendar.extra_box == True %}
                 <td class="clickable" onclick="redirect_add_event('{% url 'add-event' 01 month year %}?id_patient={{id_patient}}&type=5')">
+                    {% if patient_calendar.header_extra_box %}
+                        <span class="date fw-bold text-uppercase">{{patient_calendar.header_extra_box}}</span>
+                    {% else %}
+                        <span class="date fw-bold text-uppercase"></span>
+                    {% endif %} 
+
+                    <div class="calendar-event">
                     {% if extra_event %}
                         {% for event in extra_event %}
-                            <span class="date fw-bold text-uppercase">{{event.header}}</span>
-                            <div class="calendar-event">
                                 <a class="fs-6" href="{% url 'event-detail' event.id %}">
                                     {% if event.title  and patient_calendar.text_position_event == 1 %}
                                        {{event.title}}<br> 
@@ -122,13 +127,13 @@
                                     {% elif event.image %}
                                        <img src="{{ event.image.url}}" alt="Imagen.">
                                     {% endif %}
-                                    {% if event.title  and patient_calendar.text_position_event == 2%}
-                                       {{event.title}}<br> 
+                                    {% if event.title and patient_calendar.text_position_event == 2%}
+                                    <br> {{event.title}}
                                     {% endif %}
                                 </a>
-                            </div>
                         {% endfor %}
                     {% endif %}
+                </div>
                 </td>
             {% endif %}
         {% endif %}

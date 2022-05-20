@@ -34,10 +34,6 @@
             {% csrf_token %}
             <h5>Datos </h5>
 
-            {% if event.type == 5 %}
-                <input name="header" type="text" placeholder="Encabezado de la caja" class="form-control" maxlength="200" aria-describedby="headerHelp" value="{{ event.header }}">
-            {% endif %}
-
             <input name="title" type="text" placeholder="Nombre" class="form-control my-3" maxlength="200" value="{{ event.title }}">
             <input name="description" type="text" placeholder="Descripción" class="form-control my-3" value="{{ event.description }}">
 
