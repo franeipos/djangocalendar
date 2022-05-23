@@ -21,7 +21,7 @@ class PatientCalendar(models.Model):
     month_box = models.BooleanField(default = True)
     season_box = models.BooleanField(default = True)
     extra_box = models.BooleanField(default = False)
-    header_extra_box = models.CharField(max_length=50, blank=True, null=True, default='')
+    header_extra_box = models.CharField(max_length=50, blank=True, default='')
 
     therapist = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
 

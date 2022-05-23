@@ -155,7 +155,7 @@
                                   Extra
                                 </label>
                                 {% if patient.extra_box %}
-                                    <input type="text" placeholder="Nombre de la caja extra" name="header_extra_box" id="name_extra_box" class="form-control my-3 d-block">
+                                    <input type="text" placeholder="Nombre de la caja extra" name="header_extra_box" id="name_extra_box" class="form-control my-3 d-block" value="{{ patient.header_extra_box }}">
                                 {% else %}
                                     <input type="text" placeholder="Nombre de la caja extra" name="header_extra_box" id="name_extra_box" class="form-control my-3 d-none">
                                 {% endif %}

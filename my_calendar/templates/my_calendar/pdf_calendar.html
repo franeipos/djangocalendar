@@ -47,7 +47,7 @@
         }
 
         .date {
-          font-size: 16px;
+          font-size: 14px;
         }
 
         .calendar .calendar-event {
@@ -121,6 +121,17 @@
         <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_base.css' %}">
     {% endif %}
 
+    <style>
+        .calendar {
+            color: {{patient_calendar.font_color}};
+            font-family: {{patient_calendar.font_style}};
+        }
+        .calendar td a {
+            font-size: {{patient_calendar.font_size}}px !important;
+            color: {{patient_calendar.link_color}};
+        }
+    </style>
+
   </head>
 
   <body id="body">
@@ -131,7 +142,7 @@
             <tr>
                 {% if patient_calendar.month_box == True %}
                 <td class="clickable">
-                    <span class="cabecera">MES</span>
+                    <span class="cabecera date">MES</span>
                     <div class="calendar-event">
                         {% if month_event %}
                             {% for event in month_event %}
