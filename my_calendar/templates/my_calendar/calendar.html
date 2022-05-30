@@ -52,7 +52,7 @@
 <div class="table-responsive-md">
     <table class="calendar mb-5 text-center" id="extra_info_table">
         <tr>
-        {% if patient_calendar.month_boxes == True or patient_calendar.season_box == True or patient_calendar.extra_box == True %}
+        {% if patient_calendar.month_box == True or patient_calendar.season_box == True or patient_calendar.extra_box == True %}
             {% if patient_calendar.month_box == True %}
                 <td class="clickable" onclick="redirect_add_event('{% url 'add-event' 01 month year %}?id_patient={{id_patient}}&type=2')">
                     <span class="date fw-bold">MES</span>
@@ -112,7 +112,7 @@
                     {% if patient_calendar.header_extra_box %}
                         <span class="date fw-bold text-uppercase">{{patient_calendar.header_extra_box}}</span>
                     {% else %}
-                        <span class="date fw-bold text-uppercase"></span>
+                        </br>
                     {% endif %} 
 
                     <div class="calendar-event">
