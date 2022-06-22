@@ -47,7 +47,7 @@
         }
 
         .date {
-          font-size: 16px;
+          font-size: 14px;
         }
 
         .calendar .calendar-event {
@@ -121,74 +121,118 @@
         <link rel="stylesheet" type="text/css" href="{% static '/my_calendar/calendar_styles/calendar_base.css' %}">
     {% endif %}
 
+    <style>
+        .calendar {
+            color: {{patient_calendar.font_color}};
+            font-family: {{patient_calendar.font_style}};
+        }
+        .calendar td a {
+            font-size: {{patient_calendar.font_size}}px !important;
+            color: {{patient_calendar.link_color}};
+        }
+    </style>
+
   </head>
 
   <body id="body">
     <h3 class="titulo"> {{nombre}} </h3>
 
     <table class="calendar titulo">
-    <tr>
-        <td class="clickable">
-            <span class="cabecera">MES</span>
-            <div class="calendar-event">
-                {% if month_event %}
-                    {% for event in month_event %}
-                        <a class="fs-6" href="{% url 'event-detail' event.id %}">
-                            {% if event.title %}
-                                {{event.title}} <br>
-                            {% endif %}
+        {% if patient_calendar.month_box == True or patient_calendar.season_box == True or patient_calendar.extra_box == True %}
+            <tr>
+                {% if patient_calendar.month_box == True %}
+                <td class="clickable">
+                    <span class="cabecera date">MES</span>
+                    <div class="calendar-event">
+                        {% if month_event %}
+                            {% for event in month_event %}
+                                <a class="fs-6" href="{% url 'event-detail' event.id %}">
+                                    {% if event.title %}
+                                        {{event.title}} <br>
+                                    {% endif %}
 
-                            {% if event.url_image %}
-                                <img src="{{ event.url_image}}" alt="Imagen mes.">
-                            {% elif event.image %}
-                                <img src="{{ event.image.url}}" alt="Imagen mes.">
-                            {% endif %}
-                        </a>
-                    {% endfor %}
+                                    {% if event.url_image %}
+                                        <img src="{{ event.url_image}}" alt="Imagen mes.">
+                                    {% elif event.image %}
+                                        <img src="{{ event.image.url}}" alt="Imagen mes.">
+                                    {% endif %}
+                                </a>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 {% endif %}
-            </div>
-        </td>
-        <td class="clickable">
-            <span class="date fw-bold">ESTACIÓN</span>
-            <div class="calendar-event">
-                {% if season_event %}
-                    {% for event in season_event %}
-                        <a class="fs-6" href="{% url 'event-detail' event.id %}">
-                            {% if event.title %}
-                                {{event.title}} <br>
-                            {% endif %}
+                </td>
+                {% if patient_calendar.season_box == True %}
+                <td class="clickable">
+                    <span class="date fw-bold">ESTACIÓN</span>
+                    <div class="calendar-event">
+                        {% if season_event %}
+                            {% for event in season_event %}
+                                <a class="fs-6" href="{% url 'event-detail' event.id %}">
+                                    {% if event.title %}
+                                        {{event.title}} <br>
+                                    {% endif %}
 
-                            {% if event.url_image %}
-                                <img src="{{ event.url_image}}" alt="Imagen mes.">
-                            {% elif event.image %}
-                                <img src="{{ event.image.url}}" alt="Imagen mes.">
-                            {% endif %}
-                        </a>
-                    {% endfor %}
+                                    {% if event.url_image %}
+                                        <img src="{{ event.url_image}}" alt="Imagen mes.">
+                                    {% elif event.image %}
+                                        <img src="{{ event.image.url}}" alt="Imagen mes.">
+                                    {% endif %}
+                                </a>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </td>
                 {% endif %}
-            </div>
-        </td>
-        <td class="clickable">
-            <span class="date fw-bold">TIEMPO</span>
-            <div class="calendar-event">
-                {% if weather_event %}
-                    {% for event in weather_event %}
-                        <a class="fs-6" href="{% url 'event-detail' event.id %}">
-                            {% if event.title %}
-                                {{event.title}} <br>
-                            {% endif %}
+                {% if patient_calendar.extra_box == True %}
+                <td class="clickable">
+                    {% if patient_calendar.header_extra_box %}
+                        <span class="date fw-bold text-uppercase">{{patient_calendar.header_extra_box}}</span>
+                    {% else %}
+                        </br>
+                    {% endif %}
+                        <div class="calendar-event">
+                            {% if extra_event %}
+                                {% for event in extra_event %}
+                                    <a class="fs-6" href="{% url 'event-detail' event.id %}">
+                                        {% if event.title %}
+                                            {{event.title}} <br>
+                                        {% endif %}
 
-                            {% if event.url_image %}
-                                <img src="{{ event.url_image}}" alt="Imagen mes.">
-                            {% elif event.image %}
-                                <img src="{{ event.image.url}}" alt="Imagen mes.">
+                                        {% if event.url_image %}
+                                            <img src="{{ event.url_image}}" alt="Imagen mes.">
+                                        {% elif event.image %}
+                                            <img src="{{ event.image.url}}" alt="Imagen mes.">
+                                        {% endif %}
+                                    </a>
+                                {% endfor %}
                             {% endif %}
-                        </a>
-                    {% endfor %}
+                        </div>
+                </td>
                 {% endif %}
-            </div>
-        </td>
-    </tr>
+        <!--         <td class="clickable">
+                    <span class="date fw-bold">TIEMPO</span>
+                    <div class="calendar-event">
+                        {% if weather_event %}
+                            {% for event in weather_event %}
+                                <a class="fs-6" href="{% url 'event-detail' event.id %}">
+                                    {% if event.title %}
+                                        {{event.title}} <br>
+                                    {% endif %}
+
+                                    {% if event.url_image %}
+                                        <img src="{{ event.url_image}}" alt="Imagen mes.">
+                                    {% elif event.image %}
+                                        <img src="{{ event.image.url}}" alt="Imagen mes.">
+                                    {% endif %}
+                                </a>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </td> -->
+            </tr>
+
+        {% endif %}
 </table>
 
     {{calendar}}

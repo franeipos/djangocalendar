@@ -203,5 +203,17 @@ $(document).on("click", ".open-delete-patient", function () {
      var delete_path = $(this).data('url');
      console.log(delete_path)
      $(".modal-body #modal-patient-name").html( patient_name );
-     $(".modal-footer #modal-patient-link").attr('href', delete_path)
+     $(".modal-footer #modal-patient-link").attr('href', delete_path);
+});
+
+
+// Show or hide text input for box header.
+$('#extra_box').click(function(){
+    if($(this).is(':checked')){
+        $('#name_extra_box').removeClass('d-none');
+        $('#name_extra_box').addClass('d-block');
+    } else {
+        $('#name_extra_box').removeClass('d-block');
+        $('#name_extra_box').addClass('d-none');
+    }
 });

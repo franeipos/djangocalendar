@@ -21,7 +21,7 @@ class EventForm(ModelForm):
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
-            'description': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Descripcion'}),
+            'description': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Descripción'}),
             'date': forms.DateInput(
                 attrs={'class': 'form-control', 'placeholder': 'Selecciona una fecha', 'type': 'date'},
                 format='%Y-%m-%d'),
@@ -51,12 +51,13 @@ class EventForm(ModelForm):
             self.add_error('date', 'Ya existe un evento este día. '
                                    'Por favor, seleccione otra fecha.')
 
-        # The event must have a title or an image at least.
+
         if not data['title'] and not data['image'] and not data['url_image']:
-            # raise ValidationError("Debe proporcionar, al menos, una imagen o un nombre.")
+             # raise ValidationError("Debe proporcionar, al menos, una imagen o un nombre.")
             self.add_error('title', 'Debe proporcionar, al menos, una imagen o un nombre.')
             self.add_error('url_image', '')
-            self.add_error('image', '')
+            self.add_error('image', '')   
+
 
         # Verify if the fields are in the cleaned data and weren't removed from previous verifications.
         if not all(key in data for key in ('image', 'url_image')):
@@ -75,7 +76,7 @@ class PatientForm(ModelForm):
     class Meta:
         model = PatientCalendar
         fields = ('name', 'template_style', 'therapist', 'font_color', 'link_color', 'font_size', 'font_style',
-                  'text_position_event')
+                  'text_position_event', 'month_box', 'season_box', 'extra_box', 'header_extra_box')
         labels = {
             'name': '',
             'therapist': '',
@@ -85,8 +86,12 @@ class PatientForm(ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
             'template_style': forms.NumberInput(attrs={'class': 'form-control'}),
+            'month_box': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'season_box': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'extra_box': forms.CheckboxInput(attrs={'class': 'form-control'}),
             'therapist': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Terapeuta', 'hidden': 'True'}),
         }
+
 
     def clean(self):
         data = self.cleaned_data
